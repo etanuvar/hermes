@@ -1,0 +1,157 @@
+﻿@using Netblaster.Hermes.WebUI.Helpers
+@using Netblaster.Hermes.WebUI.Models.Client
+@model Netblaster.Hermes.WebUI.Models.Contact.AddContactViewModel
+
+<div  class="content">
+@using (Html.BeginForm("Add", "Contact", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-xs-8">
+
+            <div class="hpanel">
+                <div id="dropZone" class="panel-body">
+                    @Html.Partial("Partial/_AddContactFormData", Model)
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            @Html.CancelButton("/Contact/Index", "Anuluj")
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-plus-circle margin-right-xs"></i>Dodaj kontakt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="hpanel">
+                <div id="attachmentField" class="panel-body">
+                    <div class="stats-title pull-left">
+                        <h4><i class="fa fa-paperclip margin-right-xs"></i>Załączniki</h4>
+                        <br/>
+                        <div id="attachmentList">
+                            @Html.Partial("Partial/_AttachmentListPartial", Model.Attachments)
+                        </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+}
+</div>
+
+<div id="modal-results">
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker();
+        $('.datetime').datepicker({ format: "yyyy-mm-dd", language: "pl", locale: "pl" });
+
+        $(document).on("click",
+            "#search-click",
+            function() {
+                var searchTerm = $("#ClientDisplay").val();
+
+                var request = $.ajax({
+                    url: "/Contact/GetClients?searchTerm=" + searchTerm,
+                    method: "GET",
+                });
+
+                request.done(function(result) {
+                    $("#modal-results").html(result);
+                    $(".search-modal").show();
+                });
+
+            });
+
+        $(document).on("click",
+            ".select-search-result",
+            function() {
+                var displayName = $(this).attr("element-display");
+                var elementId = $(this).attr("element-id");
+
+                $("#KntId").val(elementId);
+                $("#ClientDisplay").val(displayName);
+                $(".search-modal").hide();
+            });
+
+        $(document).on("click",
+            ".modal-close",
+            function() {
+
+                $(".search-modal").hide();
+
+            });
+
+            $('#dropZone').filedrop({
+                url: '@Url.Action("ConvertMsgToContact")',
+                paramname: 'files',
+                maxFiles: 1,
+                dragOver: function() {
+                    $('#dropZone').css('border-style', 'dashed');
+                    $('#dropZone').css('border-width', '5px');
+                    $('#dropZone').css('border-color', 'limegreen');
+                },
+                dragLeave: function() {
+                    $('#dropZone').css('border-style', 'dashed');
+                    $('#dropZone').css('border-width', '0px');
+                },
+                drop: function() {
+                    //$('#dropZone').css('background', 'gray');
+                },
+                afterAll: function() {
+                    $('#dropZone').css('border-style', 'dashed');
+                    $('#dropZone').css('border-width', '0px');
+                },
+                uploadFinished: function(i, file, response, time) {
+                    $('#dropZone').html(response.FormData);
+                    $('#attachmentList').html(response.Attachments);
+                }
+            });
+
+                $('#attachmentField').filedrop({
+                    url: '@Url.Action("AddAttachments", "Other")',
+                    paramname: 'files',
+                    maxFiles: 10,
+                    maxfilesize: 10,
+                    allowedfileextensions: [
+                        '.jpg', '.jpeg', '.png', '.gif', '.pdf', '.docx', '.msg', '.xlsx', '.xls', '.doc', '.txt'
+                    ],
+                    data: {
+                        uniqueId: $("#UniqueId").val()
+                    },
+                dragOver: function() {
+                    $('#attachmentField').css('border-style', 'dashed');
+                    $('#attachmentField').css('border-width', '5px');
+                    $('#attachmentField').css('border-color', 'limegreen');
+                },
+                dragLeave: function() {
+                    $('#attachmentField').css('border-style', 'dashed');
+                    $('#attachmentField').css('border-width', '0px');
+                },
+                drop: function() {
+                    //$('#dropZone').css('background', 'gray');
+                },
+                afterAll: function() {
+                    $('#attachmentField').css('border-style', 'dashed');
+                    $('#attachmentField').css('border-width', '0px');
+                },
+                uploadFinished: function(i, file, response, time) {
+                    $("#attachmentList").html('');
+                    $.each(response.Files,
+                        function (index) {
+                            $("#attachmentList").append('<p>Plik: <b>' + response.Files[index] + '</b></p>');
+                        });
+                }
+
+        });
+    </script>
+
+}

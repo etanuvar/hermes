@@ -1,0 +1,13 @@
+﻿@model List<string>
+
+@if (Model.Any())
+{
+    foreach (var att in Model)
+    {
+        <p>Plik: <b>@(att)</b></p>
+    }
+}
+else
+{
+    @("Przeciągnij i upuść pliki w to miejsce.")
+}

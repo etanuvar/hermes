@@ -1,0 +1,25 @@
+﻿<div class="panel-body">
+    <a class="small-header" href="">
+        <div class="clip-header">
+            <i class="fa fa-arrow-up"></i>
+        </div>
+    </a>
+
+    <div id="hbreadcrumb" class="pull-right m-t-lg">
+        <ol class="hbreadcrumb breadcrumb">
+            @if (ViewBag.ButtonHref != null || ViewBag.ButtonText != null)
+            {
+                <a href="@ViewBag.ButtonHref" class="btn btn-sm btn-primary margin-right-xs">
+                    <i class="fa fa-plus-circle margin-right-xs"></i>@ViewBag.ButtonText
+                </a>
+            }
+        </ol>
+    </div>
+
+
+    <h2 class="font-light m-b-xs">
+        @ViewBag.PageTitle
+    </h2>
+    <div class="font-normal">@ViewBag.Description</div>
+
+</div>

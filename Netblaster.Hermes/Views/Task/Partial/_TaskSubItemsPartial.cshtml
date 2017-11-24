@@ -1,0 +1,23 @@
+﻿@using Netblaster.Hermes.DAL.Model.Enums
+@model ICollection<Netblaster.Hermes.DAL.Model.TaskSubItem>
+
+@if (Model != null)
+{
+    foreach (var subItem in Model.OrderBy(x => x.Id))
+     {
+         <div class="row border-dotted" @(subItem.IsFinished ? "style=background-color:lightgreen" : "")>
+             <div class="col-sm-1">
+                 <div class="project-label"><input class="IsFinished" element-id="@subItem.Id" type="checkbox" checked="@subItem.IsFinished" name="IsFinished" @(subItem.TaskItem.ItemStatus ==TaskItemStatus.Rejected ? "disabled='disabled'" : "")  /></div>
+             </div>
+             <div class="col-sm-8">
+                 <small>@subItem.Text</small>
+             </div> 
+             <div class="col-sm-2">
+                 @if (subItem.IsFinished)
+                 {
+                     <small>Ukończono: <b>@subItem.FinishedDate</b></small>
+                 }
+             </div>
+         </div>   
+     } 
+}

@@ -1,0 +1,19 @@
+﻿@model Int32
+
+<div class="pagination-container" style="float: right;">
+    <ul id="page-size-ul" class="pagination">
+        <li class="disabled"><a class="disabled" style="color:#999999">elementów na stronie</a></li>
+
+        <li class="@(Model == 25 ? "active" : "")">
+            <a class="page-size-link" data-val="25" href="javascript: void(0)">25</a>
+        </li>
+        <li class="@(Model == 50 ? "active" : "")">
+            <a class="page-size-link" data-val="50" href="javascript: void(0)">50</a>
+        </li>
+        <li class="@(Model == 100 ? "active" : "")">
+            <a class="page-size-link" data-val="100" href="javascript: void(0)">100</a>
+        </li>
+    </ul>
+</div>
+
+

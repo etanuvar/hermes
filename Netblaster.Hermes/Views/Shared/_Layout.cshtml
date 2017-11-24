@@ -1,0 +1,80 @@
+﻿@using System.Web.Optimization
+@using Netblaster.Hermes.WebUI.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Hermes CRM | M-Tech Release</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Primary vendor style -->
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/select2/css")
+    @Styles.Render("~/bundles/touchspin/css")
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/datetimepicker/css")
+    @Styles.Render("~/bundles/clockpicker/css")
+    @Styles.Render("~/bundles/fullCalendar/css")
+    @Styles.Render("~/bundles/sweetalert/css")
+    
+
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+                                              
+     <!-- Primary HOMER style -->
+     @Styles.Render("~/bundles/homer/css")
+     </head>
+     <body class="@Html.PageClass()">
+
+     <!-- Simple splash screen-->
+     <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Hermes CRM</h1><p></p><div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>
+     <!--[if lt IE 7]>
+         <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+     <![endif]-->
+     <!-- Header -->
+     <div id="header">
+         @Html.Partial("_Header")
+     </div>
+
+     <!-- Navigation -->
+     <aside id="menu">
+         @Html.Partial("_Navigation")
+     </aside>
+
+     <!-- Main view  -->
+     <div id="wrapper">
+         @RenderBody()
+
+         <!-- Right Sidebar -->
+         @Html.Partial("_Right_Sidebar")
+
+         <!-- Footer-->
+     </div>
+
+     <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/xeditable/js")
+    @Scripts.Render("~/bundles/select2/js")
+    @Scripts.Render("~/bundles/touchspin/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datetimepicker/js")
+    @Scripts.Render("~/bundles/clockpicker/js")
+    @Scripts.Render("~/bundles/fullCalendar/js")
+     @Scripts.Render("~/bundles/sweetalert/js")
+    
+
+     <!-- Handler for local scripts -->
+     @RenderSection("scripts", required: false)
+     </body>
+     </html>

@@ -1,0 +1,59 @@
+﻿@using Netblaster.Hermes.DAL.Extensions  
+@model Netblaster.Hermes.WebUI.Models.Task.TaskDetailsViewModel
+
+<h5 ><i class="fa fa-file-text-o margin-right-xs"></i>Podstawowe informacje</h5>
+<div class="row border-dotted">
+    <div class="col-sm-2">
+        <div class="project-label">Status</div>
+    </div>
+    <div class="col-sm-10">
+        <span class="label notes-@Model.ItemStatus">@Model.ItemStatus.GetDisplayName()</span>
+    </div>
+</div>
+<div class="row border-dotted">
+    <div class="col-sm-2">
+        <div class="project-label">Utworzone przez</div>
+    </div>
+    <div class="col-sm-10">
+        <small>@Model.CreatedBy.DisplayName</small>
+    </div>
+</div>
+<div class="row border-dotted">
+    <div class="col-sm-2">
+        <div class="project-label">Data utworzenia</div>
+    </div>
+    <div class="col-sm-10">
+        <small>@Model.CreateDate</small>
+    </div>
+</div>
+<div class="row border-dotted">
+    <div class="col-sm-2">
+        <div class="project-label">Termin graniczny</div>
+    </div>
+    <div class="col-sm-10">
+        <small>@Model.DeadlineDate</small>
+    </div>
+</div>
+
+    <div class="row border-dotted">
+        <div class="col-sm-2">
+            <div class="project-label">Data zakończenia</div>
+        </div>
+        <div class="col-sm-10">
+        @if (Model.EndDate.HasValue)
+        {
+            <small>@Model.EndDate.Value</small>
+        }
+        </div>
+    </div>
+
+<br/>
+<h5 ><i class="fa fa-edit margin-right-xs"></i>Zadanie</h5>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well well-lg">
+            <p>@Model.Note</p>
+        </div>
+                                            
+    </div>
+</div>

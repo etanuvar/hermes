@@ -1,0 +1,57 @@
+﻿@model Netblaster.Hermes.WebUI.Models.Client.ClientListViewModel
+
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        @Html.Partial("_PageFilterHeader")
+        <div class="panel-footer">
+            @Html.Partial("_FilterBoxForm", Model.FilterBox)
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right: 17px; display: none">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header">
+                <h4 id="robot-container-form-header" class="modal-title"></h4>
+                <small class="font-bold"></small>
+            </div>
+            <form role="form" id="create-robot-container-form">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="robot-container-form-hidden-id" />
+                    <div class="form-group">
+                        <label>Log details</label>
+                        <textarea name="description" id="robotContainerDescriptionFormInput"  class="form-control" rows="6" cols="25"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><i class="fa fa-ban margin-right-xs"></i>Close</button>
+                </div>
+            </form>
+        </div>  
+    </div>
+</div>
+
+
+
+<div id="ajax-list-grid">
+    @Html.Partial("_PagedListPartial", Model.ListData)
+</div>
+@section Scripts {
+    <script src="~/Scripts/PagedLists/PagedListWithFilter.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#page-size').val('25');
+        });
+
+        $(document).on("click",
+            ".audit-row",
+            function () {
+
+                var id = $(this).attr("element-id");
+                window.location = "/Other/Details/" + id;
+            });
+
+    </script>
+}

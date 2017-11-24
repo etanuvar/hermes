@@ -1,0 +1,138 @@
+﻿<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                @*<ol class="hbreadcrumb breadcrumb">
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li>
+                        <span>App views</span>
+                    </li>
+                    <li class="active">
+                        <span>Notes</span>
+                    </li>
+                </ol>*@
+            </div>
+            <h2 class="font-light m-b-xs">
+                Moje zadania
+            </h2>
+            <small>Zarządzaj statusem swoich zadań</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+@using Netblaster.Hermes.DAL.Extensions
+@using Netblaster.Hermes.DAL.Model.Enums
+@model Netblaster.Hermes.WebUI.Models.Task.MyTasksViewModel
+
+<div class="row">
+<div class="col-md-3">
+    <div class="hpanel panel-group">
+        <div class="panel-body">
+            <div class="text-center text-muted font-bold">Wyszukaj zadanie</div>
+
+        </div>
+        <div class="panel-section">
+            
+            @using (Ajax.BeginForm("FilterMyTasks", new AjaxOptions() {HttpMethod = "POST", UpdateTargetId = "notes" }))
+            {
+                <div class="input-group">
+                    <input id="searchFilter" name="searchFilter" type="text" class="form-control" placeholder="Nazwa zadania...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="fa fa-search small"></i> </button>
+                    </span>
+                </div>
+            }
+
+            @*<button type="button" data-toggle="collapse" data-target="#notes"
+                    class="btn-sm visible-xs visible-sm collapsed btn-default btn btn-block m-t-sm">
+                All notes <i class="fa fa-angle-down"></i>
+            </button>*@
+        </div>
+
+        <div id="notes" class="collapse">
+            @Html.Partial("_MyTasksPartial", Model.Tasks)
+        </div>
+    </div>
+</div>
+<div class="col-md-9">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div class="text-center hidden">
+                We couldn't find any notes for you.
+            </div>
+            
+
+
+            <div class="tab-content">
+                @foreach (var task in Model.Tasks)
+                {
+                    <div id="note-@task.Id" class="tab-pane">
+                        
+                        <div id="tab-@task.Id-1">
+                            <div class="pull-right text-muted m-l-lg">
+                                <a href="/Task/Details/@task.Id" class="btn btn-sm btn-primary margin-right-xs">
+                                    <i class="fa fa-edit margin-right-xs"></i>Szczegóły zadania
+                                </a>
+                               
+                            </div>
+                            <h3>@task.Title</h3>
+                            <div class="font-normal">@task.CreateDate</div>
+                            
+                            <hr/>
+                            <div class="note-content">
+                                <textarea class="form-control">@task.Note
+                                </textarea>
+                            </div>
+
+
+                        </div>
+                       
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+</div>
+
+@section Scripts {
+    <script>
+        var replaceWithResult = function(data) {
+            $("#notes").html(data);
+        }
+
+        $(document).on("click", ".change-state", function () {
+
+            var elemId = $(this).attr('elem-id');
+            var urls = $(this).attr('data-url') + "&searchFilter=" + $("#searchFilter").val();
+
+            $.ajax({
+                url: urls,
+            }).done(function (result) {
+
+                $("#notes").html(result);
+
+                swal({
+                    title: "Potwierdzenie",
+                    text: "Zmieniono status zadania.",
+                    type: "success"
+                });
+            });
+        });
+
+    </script>
+}
+

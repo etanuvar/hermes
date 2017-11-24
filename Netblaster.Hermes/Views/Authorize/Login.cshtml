@@ -1,0 +1,45 @@
+﻿@model Netblaster.Hermes.WebUI.Models.Authorize.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<div class="login-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center m-b-md">
+                <h3>HERMES CRM</h3>
+                <small>Zaloguj się do aplikacji</small>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Login", "Authorize", FormMethod.Post))
+                    {
+                        <div class="input-validation-error">@Html.ValidationSummary()</div>
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class= "control-label" })
+                            @Html.TextBoxFor(model => model.Email, new { @placeholder = "adres@email.pl", @class="form-control" })
+                            @Html.ValidationMessageFor(model => model.Email)
+                            @*<span class="help-block small">Your unique username to app</span>*@
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                            @Html.PasswordFor(model => model.Password, new { @placeholder = "******", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                            @*<span class="help-block small">Your unique username to app</span>*@
+                        </div>
+                        <button class="btn btn-success btn-block">Zaloguj</button>
+                        <a class="btn btn-default btn-block" href="/Authorize/Register">Rejestracja</a>
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <strong>Hermes CRM</strong><br />2017 Copyright Paweł Naworski
+        </div>
+    </div>
+</div>

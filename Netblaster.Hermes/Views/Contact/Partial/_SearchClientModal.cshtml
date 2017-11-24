@@ -1,0 +1,47 @@
+﻿@model List<Netblaster.Hermes.WebUI.Models.Client.ClientSearchViewModel>
+
+<div class="modal fade in search-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="color-line"></div>
+        <div class="modal-header modal-header-sm" ><h3>Wyszukiwanie kontrahentów</h3></div>
+        <form id="scheduler-item-details" method="post">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table cellpadding="1" cellspacing="1" class="table table-middled">
+                                <thead>
+                                <tr>
+                                    <th>Nazwa kontrahenta</th>
+                                    <th>NIP</th>
+                                    <th>Miasto</th>
+                                    <th class="col-xs-2"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var client in Model)
+                                {
+                                    <tr>
+                                        <td><i class="fa fa-user margin-right-xs"></i>@client.Knt_Nazwa1</td>
+                                        <td>@client.Knt_Nip</td>
+                                        <td>@client.Knt_Miasto</td>
+                                        <td> 
+                                            <a element-id="@client.Knt_KntId" element-display="@client.Knt_Nazwa1" class="btn btn-sm btn-orange margin-right-xs select-search-result"><i class="fa fa-search margin-right-xs"></i>Wybierz</a>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer text-left">
+                <button type="button" class="btn btn-sm btn-default modal-close" data-dismiss="search-modal"><i class="fa fa-ban margin-right-xs"></i>Zamknij</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

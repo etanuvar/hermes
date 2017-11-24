@@ -1,0 +1,15 @@
+﻿ @using Netblaster.Hermes.DAL.Extensions @model IEnumerable<Netblaster.Hermes.BLL.DTOs.TaskListDto>
+
+@foreach (var task in Model)
+  {
+      <a href="#note-@task.Id" data-toggle="tab">
+          <div id="notes-@task.Id" class="notes-@task.ItemStatus panel-body note-link">
+
+              <small class="pull-right text-muted">@task.CreateDate</small>
+              <h5>@task.Title</h5>
+
+              <span class="label notes-@task.ItemStatus pull-right">@task.ItemStatus.GetDisplayName()</span>
+          </div>
+      </a>
+                
+  }

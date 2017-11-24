@@ -1,0 +1,86 @@
+﻿@model Netblaster.Hermes.BLL.DTOs.FilterBoxes.TaskFilterDto
+
+@using (Ajax.BeginForm("Index", null, new AjaxOptions() { UpdateTargetId = "ajax-list-grid", HttpMethod = "Post", InsertionMode = InsertionMode.Replace, OnBegin = "PagedListSectionApp.tableBeginLoad()", OnComplete = "PagedListSectionApp.tableEndLoad()" }, htmlAttributes: new { @id = "filter-form" }))
+{
+    @Html.HiddenFor(model => model.Page, htmlAttributes: new { @id = "page-number" })
+    @Html.HiddenFor(model => model.PageSize, htmlAttributes: new { @id = "page-size" })
+    @Html.HiddenFor(model => model.SortParam, htmlAttributes: new { @id = "sort-param" })
+    @Html.HiddenFor(model => model.ItemsTotalCount, htmlAttributes: new { @id = "items-total-count" })
+
+    <div id="filter-box">
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.CreatedById)
+                @Html.DropDownListFor(model => Model.CreatedById, Model.AvailableUsers, "Wybierz użytkownika...", new { @class = "form-control form-control-sm" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.SelectedGroupId)
+                @Html.DropDownListFor(model => Model.SelectedGroupId, Model.AvailableGroups, "Wybierz grupę...", new {@class = "form-control form-control-sm"})
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Note, htmlAttributes: new {@class = ""})
+                @Html.EditorFor(model => model.Note, new {htmlAttributes = new {@class = "form-control"}})
+            </div>
+        </div>
+
+        <div class="row margin-top-sm">
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.CreateDateFrom, htmlAttributes: new {@class = "control-label  display-block"})
+                        @Html.EditorFor(model => model.CreateDateFrom, new {htmlAttributes = new {@class = "form-control datetime", @style = "width:100%"}})
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.CreateDateTo, htmlAttributes: new {@class = "control-label  display-block"})
+                        @Html.EditorFor(model => model.CreateDateTo, new {htmlAttributes = new {@class = "form-control datetime", @style = "width:100%"}})
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.DeadlineDateFrom, htmlAttributes: new { @class = "control-label  display-block" })
+                        @Html.EditorFor(model => model.DeadlineDateFrom, new { htmlAttributes = new { @class = "form-control datetime", @style = "width:100%" } })
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.DeadlineDateTo, htmlAttributes: new { @class = "control-label  display-block" })
+                        @Html.EditorFor(model => model.DeadlineDateTo, new { htmlAttributes = new { @class = "form-control datetime", @style = "width:100%" } })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.EndDateFrom, htmlAttributes: new { @class = "control-label  display-block" })
+                        @Html.EditorFor(model => model.EndDateFrom, new { htmlAttributes = new { @class = "form-control datetime", @style = "width:100%" } })
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.EndDateTo, htmlAttributes: new { @class = "control-label  display-block" })
+                        @Html.EditorFor(model => model.EndDateTo, new { htmlAttributes = new { @class = "form-control datetime", @style = "width:100%" } })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.ItemStatus, htmlAttributes: new { @class = "control-label  display-block" })
+                @Html.EnumDropDownListFor(model => model.ItemStatus, new { @class = "form-control", @style = "width:100%" })
+            </div>
+            
+        </div>
+
+        <div class="row margin-top-md">
+            <div class="col-xs-12">
+                <button class="btn btn-sm btn-danger space-right-xs" type="button" id="btn-clean-filters"><i class="fa fa-trash space-right-sm"></i> Wyczyść</button>
+                <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-search space-right-sm"></i> Filtruj zadania</button><br /><br />
+            </div>
+        </div>
+    </div>
+}
+
+

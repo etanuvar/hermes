@@ -1,0 +1,57 @@
+﻿@model Netblaster.Hermes.BLL.DTOs.FilterBoxes.ClientFilterDto
+
+@using (Ajax.BeginForm("Index", null, new AjaxOptions() { UpdateTargetId = "ajax-list-grid", HttpMethod = "Post", InsertionMode = InsertionMode.Replace, OnBegin = "PagedListSectionApp.tableBeginLoad()", OnComplete = "PagedListSectionApp.tableEndLoad()" }, htmlAttributes: new { @id = "filter-form" }))
+{
+    @Html.HiddenFor(model => model.Page, htmlAttributes: new { @id = "page-number" })
+    @Html.HiddenFor(model => model.PageSize, htmlAttributes: new { @id = "page-size" })
+    @Html.HiddenFor(model => model.SortParam, htmlAttributes: new { @id = "sort-param" })
+    @Html.HiddenFor(model => model.ItemsTotalCount, htmlAttributes: new { @id = "items-total-count" })
+
+    <div id="filter-box">
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Nazwa1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Knt_Nazwa1, new { htmlAttributes = new { @class = "form-control datetime" } })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Nip, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Knt_Nip, new { htmlAttributes = new { @class = "form-control datetime" } })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Email, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Knt_Email, new { htmlAttributes = new { @class = "form-control datetime" } })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Telefon1, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Knt_Telefon1, new { htmlAttributes = new { @class = "form-control datetime" } })
+            </div>
+        </div>
+
+        <div class="row margin-top-sm">
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Powiat, htmlAttributes: new { @class = "control-label  display-block" })
+                @Html.EditorFor(model => model.Knt_Powiat, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+            </div>
+            
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Ulica, htmlAttributes: new { @class = "control-label  display-block" })
+                @Html.EditorFor(model => model.Knt_Ulica, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+            </div>
+            
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_KodPocztowy, htmlAttributes: new { @class = "control-label  display-block" })
+                @Html.EditorFor(model => model.Knt_KodPocztowy, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+            </div>
+            
+        </div>
+
+        <div class="row margin-top-md">
+            <div class="col-xs-12">
+                <button class="btn btn-sm btn-default space-right-xs" type="button" id="btn-clean-filters"><i class="fa fa-trash space-right-sm"></i>Wyczyść</button>
+                <button class="btn btn-sm btn-default" type="submit"><i class="fa fa-search space-right-sm"></i>Filtruj kontrahentów</button><br /><br />
+            </div>
+        </div>
+    </div>
+}
+
+

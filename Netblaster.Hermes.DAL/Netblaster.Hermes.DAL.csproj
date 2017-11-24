@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B2406F44-5926-43F7-95F4-F2D862529790}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Netblaster.Hermes.DAL</RootNamespace>
+    <AssemblyName>Netblaster.Hermes.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="HermesDataContext.cs" />
+    <Compile Include="Interface\IHermesDataContext.cs" />
+    <Compile Include="Migrations\201710102134056_Initial.cs" />
+    <Compile Include="Migrations\201710102134056_Initial.Designer.cs">
+      <DependentUpon>201710102134056_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710122024196_AddColumnContactType.cs" />
+    <Compile Include="Migrations\201710122024196_AddColumnContactType.Designer.cs">
+      <DependentUpon>201710122024196_AddColumnContactType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710131230523_AddedTaskItemStatus.cs" />
+    <Compile Include="Migrations\201710131230523_AddedTaskItemStatus.Designer.cs">
+      <DependentUpon>201710131230523_AddedTaskItemStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021847353_AdditionalTables.cs" />
+    <Compile Include="Migrations\201711021847353_AdditionalTables.Designer.cs">
+      <DependentUpon>201711021847353_AdditionalTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711022016123_TaskItemUsersAdded.cs" />
+    <Compile Include="Migrations\201711022016123_TaskItemUsersAdded.Designer.cs">
+      <DependentUpon>201711022016123_TaskItemUsersAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051254454_AddAttachmentTable.cs" />
+    <Compile Include="Migrations\201711051254454_AddAttachmentTable.Designer.cs">
+      <DependentUpon>201711051254454_AddAttachmentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051919237_DeadlineDate.cs" />
+    <Compile Include="Migrations\201711051919237_DeadlineDate.Designer.cs">
+      <DependentUpon>201711051919237_DeadlineDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711070928088_AddUserGroupsAndSubTasks.cs" />
+    <Compile Include="Migrations\201711070928088_AddUserGroupsAndSubTasks.Designer.cs">
+      <DependentUpon>201711070928088_AddUserGroupsAndSubTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071136277_MissingRef.cs" />
+    <Compile Include="Migrations\201711071136277_MissingRef.Designer.cs">
+      <DependentUpon>201711071136277_MissingRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071149290_FixRefferences.cs" />
+    <Compile Include="Migrations\201711071149290_FixRefferences.Designer.cs">
+      <DependentUpon>201711071149290_FixRefferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711131716045_Groups.cs" />
+    <Compile Include="Migrations\201711131716045_Groups.Designer.cs">
+      <DependentUpon>201711131716045_Groups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711131821217_GroupsTableRefFix.cs" />
+    <Compile Include="Migrations\201711131821217_GroupsTableRefFix.Designer.cs">
+      <DependentUpon>201711131821217_GroupsTableRefFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711151955396_WrongRefFIx.cs" />
+    <Compile Include="Migrations\201711151955396_WrongRefFIx.Designer.cs">
+      <DependentUpon>201711151955396_WrongRefFIx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711152014009_FixingRef2.cs" />
+    <Compile Include="Migrations\201711152014009_FixingRef2.Designer.cs">
+      <DependentUpon>201711152014009_FixingRef2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191623584_FixKey.cs" />
+    <Compile Include="Migrations\201711191623584_FixKey.Designer.cs">
+      <DependentUpon>201711191623584_FixKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191814045_FixKey2.cs" />
+    <Compile Include="Migrations\201711191814045_FixKey2.Designer.cs">
+      <DependentUpon>201711191814045_FixKey2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191821595_ReCreateUserMessages.cs" />
+    <Compile Include="Migrations\201711191821595_ReCreateUserMessages.Designer.cs">
+      <DependentUpon>201711191821595_ReCreateUserMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\ApplicationUser.cs" />
+    <Compile Include="Model\Attachment.cs" />
+    <Compile Include="Model\CalendarComponent.cs" />
+    <Compile Include="Model\ChatItem.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\Enums\EmailTypeEnum.cs" />
+    <Compile Include="Model\Enums\TaskDetailType.cs" />
+    <Compile Include="Model\Enums\TaskItemStatus.cs" />
+    <Compile Include="Model\Enums\UserRoleEnum.cs" />
+    <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\Parameter.cs" />
+    <Compile Include="Model\TaskDetail.cs" />
+    <Compile Include="Model\TaskItem.cs" />
+    <Compile Include="Model\TaskItemUser.cs" />
+    <Compile Include="Model\TaskSubItem.cs" />
+    <Compile Include="Model\ToDoItem.cs" />
+    <Compile Include="Model\UserGroup.cs" />
+    <Compile Include="Model\UserMessage.cs" />
+    <Compile Include="Model\WorkTime.cs" />
+    <Compile Include="Optima\Kontrahenci.cs">
+      <DependentUpon>OptimaDataContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Optima\OptimaDataContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OptimaDataContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Optima\OptimaDataContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OptimaDataContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Optima\OptimaDataContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OptimaDataContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Optima\OptimaDataContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OptimaDataContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Optima\OptimaDataContext.edmx.diagram">
+      <DependentUpon>OptimaDataContext.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710102134056_Initial.resx">
+      <DependentUpon>201710102134056_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710122024196_AddColumnContactType.resx">
+      <DependentUpon>201710122024196_AddColumnContactType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710131230523_AddedTaskItemStatus.resx">
+      <DependentUpon>201710131230523_AddedTaskItemStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021847353_AdditionalTables.resx">
+      <DependentUpon>201711021847353_AdditionalTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711022016123_TaskItemUsersAdded.resx">
+      <DependentUpon>201711022016123_TaskItemUsersAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051254454_AddAttachmentTable.resx">
+      <DependentUpon>201711051254454_AddAttachmentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051919237_DeadlineDate.resx">
+      <DependentUpon>201711051919237_DeadlineDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711070928088_AddUserGroupsAndSubTasks.resx">
+      <DependentUpon>201711070928088_AddUserGroupsAndSubTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071136277_MissingRef.resx">
+      <DependentUpon>201711071136277_MissingRef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071149290_FixRefferences.resx">
+      <DependentUpon>201711071149290_FixRefferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711131716045_Groups.resx">
+      <DependentUpon>201711131716045_Groups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711131821217_GroupsTableRefFix.resx">
+      <DependentUpon>201711131821217_GroupsTableRefFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711151955396_WrongRefFIx.resx">
+      <DependentUpon>201711151955396_WrongRefFIx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711152014009_FixingRef2.resx">
+      <DependentUpon>201711152014009_FixingRef2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191623584_FixKey.resx">
+      <DependentUpon>201711191623584_FixKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191814045_FixKey2.resx">
+      <DependentUpon>201711191814045_FixKey2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191821595_ReCreateUserMessages.resx">
+      <DependentUpon>201711191821595_ReCreateUserMessages.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Optima\OptimaDataContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OptimaDataContext.edmx</DependentUpon>
+      <LastGenOutput>OptimaDataContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Optima\OptimaDataContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OptimaDataContext.edmx</DependentUpon>
+      <LastGenOutput>OptimaDataContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

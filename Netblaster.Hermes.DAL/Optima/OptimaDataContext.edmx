@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CDN_mtestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kontrahenci">
+          <Key>
+            <PropertyRef Name="Knt_KntId" />
+          </Key>
+          <Property Name="Knt_KntId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Knt_PodmiotTyp" Type="smallint" />
+          <Property Name="Knt_Kod" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_GLN" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Knt_EAN" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Knt_Grupa" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_Nazwa1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Knt_Nazwa2" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Knt_Nazwa3" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Knt_Kraj" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_Wojewodztwo" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_Powiat" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_Gmina" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_Ulica" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_NrDomu" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Knt_NrLokalu" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Knt_Miasto" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_KodPocztowy" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Knt_Poczta" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_Adres2" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_NipKraj" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Knt_NipE" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Knt_Nip" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Knt_Regon" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_Pesel" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Knt_Telefon1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_Telefon2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_TelefonSms" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_Fax" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_Email" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Knt_URL" Type="varchar" MaxLength="254" Nullable="false" />
+          <Property Name="Knt_KrajISO" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Knt_Zezwolenie" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_KodTransakcji" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="Knt_BazaBR_GUID" Type="uniqueidentifier" />
+          <Property Name="Knt_BNaID" Type="int" />
+          <Property Name="Knt_RachunekNr" Type="nvarchar" MaxLength="51" Nullable="false" />
+          <Property Name="Knt_IBAN" Type="smallint" Nullable="false" />
+          <Property Name="Knt_RachunekNr0" Type="nvarchar" MaxLength="51" StoreGeneratedPattern="Computed" />
+          <Property Name="Knt_OsTytul" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_OsPlec" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_OsNazwisko" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsKraj" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsWojewodztwo" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsPowiat" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsGmina" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsUlica" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsNrDomu" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Knt_OsNrLokalu" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Knt_OsMiasto" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsKodPocztowy" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Knt_OsPoczta" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsAdres2" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_OsTelefon" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_OsGSM" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_OsEmail" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Knt_Informacje" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Upust" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Knt_LimitFlag" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_LimitKredytu" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Knt_LimitPrzeterKredytFlag" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_LimitPrzeterKredytWartosc" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Knt_Ceny" Type="smallint" Nullable="false" />
+          <Property Name="Knt_FplID" Type="int" />
+          <Property Name="Knt_MaxZwloka" Type="smallint" Nullable="false" />
+          <Property Name="Knt_TerminPlat" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Termin" Type="smallint" Nullable="false" />
+          <Property Name="Knt_KontoOdb" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Knt_KontoDost" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Knt_KatID" Type="int" />
+          <Property Name="Knt_KatZakID" Type="int" />
+          <Property Name="Knt_BlokadaDok" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_LimitKredytuWal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Knt_LimitKredytuWykorzystany" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Knt_NieRozliczac" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_PodatekVat" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Finalny" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_FinalnyWegiel" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Export" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rodzaj" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Dostawca" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Odbiorca" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Konkurencja" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Partner" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Potencjalny" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Medialny" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_MalyPod" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Rolnik" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Nieaktywny" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Chroniony" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_Opis" Type="nvarchar" MaxLength="254" Nullable="false" />
+          <Property Name="Knt_OdbiorcaId" Type="int" />
+          <Property Name="Knt_OpiekunTyp" Type="smallint" />
+          <Property Name="Knt_OpiekunId" Type="int" />
+          <Property Name="Knt_OpiekunKsiegTyp" Type="smallint" />
+          <Property Name="Knt_OpiekunKsiegID" Type="int" />
+          <Property Name="Knt_OpiekunKsiegDomyslny" Type="tinyint" />
+          <Property Name="Knt_OpiekunPiKTyp" Type="smallint" />
+          <Property Name="Knt_OpiekunPiKID" Type="int" />
+          <Property Name="Knt_OpiekunPiKDomyslny" Type="tinyint" />
+          <Property Name="Knt_TerminZwrotuKaucji" Type="smallint" Nullable="false" />
+          <Property Name="Knt_NaliczajPlatnosc" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_ZakazDokumentowHaMag" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_ZgodaNaEFaktury" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_TypWymiany" Type="tinyint" />
+          <Property Name="Knt_PowiazanyUoV" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_MetodaKasowa" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_UWDId" Type="int" />
+          <Property Name="Knt_UWDOddzial" Type="nvarchar" MaxLength="10" />
+          <Property Name="Knt_UWDEmail" Type="nvarchar" MaxLength="30" />
+          <Property Name="Knt_TS_Export" Type="datetime" />
+          <Property Name="Knt_ImportAppId" Type="varchar" MaxLength="5" />
+          <Property Name="Knt_ImportRowId" Type="varchar" MaxLength="36" />
+          <Property Name="Knt_OpeZalID" Type="int" />
+          <Property Name="Knt_StaZalId" Type="int" />
+          <Property Name="Knt_TS_Zal" Type="datetime" Nullable="false" />
+          <Property Name="Knt_OpeModID" Type="int" />
+          <Property Name="Knt_StaModId" Type="int" />
+          <Property Name="Knt_TS_Mod" Type="datetime" Nullable="false" />
+          <Property Name="Knt_GIDTyp" Type="smallint" />
+          <Property Name="Knt_GIDFirma" Type="int" />
+          <Property Name="Knt_GIDNumer" Type="int" />
+          <Property Name="Knt_GIDLp" Type="smallint" />
+          <Property Name="Knt_eSklepID" Type="int" />
+          <Property Name="Knt_FCzynnosci" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_FCzesci" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_KorKraj" Type="nvarchar" MaxLength="40" />
+          <Property Name="Knt_KorMiasto" Type="nvarchar" MaxLength="40" />
+          <Property Name="Knt_KorKodPocztowy" Type="varchar" MaxLength="10" />
+          <Property Name="Knt_KorPoczta" Type="nvarchar" MaxLength="40" />
+          <Property Name="Knt_KorUlica" Type="nvarchar" MaxLength="40" />
+          <Property Name="Knt_KorNrDomu" Type="nvarchar" MaxLength="10" />
+          <Property Name="Knt_KorNrLokalu" Type="nvarchar" MaxLength="10" />
+          <Property Name="Knt_NieNaliczajOdsetek" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_ESklep" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_ZwolnionyZAkcyzy" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_WindykacjaSchematId" Type="int" />
+          <Property Name="Knt_WindykacjaOsobaId" Type="int" />
+          <Property Name="Knt_WindykacjaEMail" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="Knt_WindykacjaTelefonSms" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Knt_Komornik" Type="tinyint" Nullable="false" />
+          <Property Name="Knt_KomornikOkreg" Type="nvarchar" MaxLength="256" />
+          <Property Name="Knt_KomornikMiasto" Type="nvarchar" MaxLength="40" />
+          <Property Name="Knt_KomornikRewir" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK_KntOdbiorca">
+          <End Role="Kontrahenci" Type="Self.Kontrahenci" Multiplicity="0..1" />
+          <End Role="Kontrahenci1" Type="Self.Kontrahenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kontrahenci">
+              <PropertyRef Name="Knt_KntId" />
+            </Principal>
+            <Dependent Role="Kontrahenci1">
+              <PropertyRef Name="Knt_OdbiorcaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CDN_mtestModelStoreContainer">
+          <EntitySet Name="Kontrahenci" EntityType="Self.Kontrahenci" Schema="CDN" store:Type="Tables" />
+          <AssociationSet Name="FK_KntOdbiorca" Association="Self.FK_KntOdbiorca">
+            <End Role="Kontrahenci" EntitySet="Kontrahenci" />
+            <End Role="Kontrahenci1" EntitySet="Kontrahenci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CDN_mtestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kontrahenci">
+          <Key>
+            <PropertyRef Name="Knt_KntId" />
+          </Key>
+          <Property Name="Knt_KntId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Knt_PodmiotTyp" Type="Int16" />
+          <Property Name="Knt_Kod" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_GLN" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_EAN" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Grupa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Nazwa1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Nazwa2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Nazwa3" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Kraj" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Wojewodztwo" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Powiat" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Gmina" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Ulica" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_NrDomu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_NrLokalu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Miasto" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_KodPocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Poczta" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Adres2" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_NipKraj" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_NipE" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Nip" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Regon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Pesel" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Telefon1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Telefon2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_TelefonSms" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Email" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_URL" Type="String" MaxLength="254" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_KrajISO" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Zezwolenie" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_KodTransakcji" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_BazaBR_GUID" Type="Guid" />
+          <Property Name="Knt_BNaID" Type="Int32" />
+          <Property Name="Knt_RachunekNr" Type="String" MaxLength="51" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_IBAN" Type="Int16" Nullable="false" />
+          <Property Name="Knt_RachunekNr0" Type="String" MaxLength="51" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Knt_OsTytul" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsPlec" Type="Byte" Nullable="false" />
+          <Property Name="Knt_OsNazwisko" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsKraj" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsWojewodztwo" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsPowiat" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsGmina" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsUlica" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsNrDomu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsNrLokalu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsMiasto" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsKodPocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_OsPoczta" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsAdres2" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OsTelefon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_OsGSM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_OsEmail" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_Informacje" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Upust" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Knt_LimitFlag" Type="Byte" Nullable="false" />
+          <Property Name="Knt_LimitKredytu" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Knt_LimitPrzeterKredytFlag" Type="Byte" Nullable="false" />
+          <Property Name="Knt_LimitPrzeterKredytWartosc" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Knt_Ceny" Type="Int16" Nullable="false" />
+          <Property Name="Knt_FplID" Type="Int32" />
+          <Property Name="Knt_MaxZwloka" Type="Int16" Nullable="false" />
+          <Property Name="Knt_TerminPlat" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Termin" Type="Int16" Nullable="false" />
+          <Property Name="Knt_KontoOdb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_KontoDost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_KatID" Type="Int32" />
+          <Property Name="Knt_KatZakID" Type="Int32" />
+          <Property Name="Knt_BlokadaDok" Type="Byte" Nullable="false" />
+          <Property Name="Knt_LimitKredytuWal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_LimitKredytuWykorzystany" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Knt_NieRozliczac" Type="Byte" Nullable="false" />
+          <Property Name="Knt_PodatekVat" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Finalny" Type="Byte" Nullable="false" />
+          <Property Name="Knt_FinalnyWegiel" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Export" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rodzaj" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Dostawca" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Odbiorca" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Konkurencja" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Partner" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rodzaj_Potencjalny" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Medialny" Type="Byte" Nullable="false" />
+          <Property Name="Knt_MalyPod" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Rolnik" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Nieaktywny" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Chroniony" Type="Byte" Nullable="false" />
+          <Property Name="Knt_Opis" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_OdbiorcaId" Type="Int32" />
+          <Property Name="Knt_OpiekunTyp" Type="Int16" />
+          <Property Name="Knt_OpiekunId" Type="Int32" />
+          <Property Name="Knt_OpiekunKsiegTyp" Type="Int16" />
+          <Property Name="Knt_OpiekunKsiegID" Type="Int32" />
+          <Property Name="Knt_OpiekunKsiegDomyslny" Type="Byte" />
+          <Property Name="Knt_OpiekunPiKTyp" Type="Int16" />
+          <Property Name="Knt_OpiekunPiKID" Type="Int32" />
+          <Property Name="Knt_OpiekunPiKDomyslny" Type="Byte" />
+          <Property Name="Knt_TerminZwrotuKaucji" Type="Int16" Nullable="false" />
+          <Property Name="Knt_NaliczajPlatnosc" Type="Byte" Nullable="false" />
+          <Property Name="Knt_ZakazDokumentowHaMag" Type="Byte" Nullable="false" />
+          <Property Name="Knt_ZgodaNaEFaktury" Type="Byte" Nullable="false" />
+          <Property Name="Knt_TypWymiany" Type="Byte" />
+          <Property Name="Knt_PowiazanyUoV" Type="Byte" Nullable="false" />
+          <Property Name="Knt_MetodaKasowa" Type="Byte" Nullable="false" />
+          <Property Name="Knt_UWDId" Type="Int32" />
+          <Property Name="Knt_UWDOddzial" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_UWDEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_TS_Export" Type="DateTime" Precision="3" />
+          <Property Name="Knt_ImportAppId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Knt_ImportRowId" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="Knt_OpeZalID" Type="Int32" />
+          <Property Name="Knt_StaZalId" Type="Int32" />
+          <Property Name="Knt_TS_Zal" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Knt_OpeModID" Type="Int32" />
+          <Property Name="Knt_StaModId" Type="Int32" />
+          <Property Name="Knt_TS_Mod" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Knt_GIDTyp" Type="Int16" />
+          <Property Name="Knt_GIDFirma" Type="Int32" />
+          <Property Name="Knt_GIDNumer" Type="Int32" />
+          <Property Name="Knt_GIDLp" Type="Int16" />
+          <Property Name="Knt_eSklepID" Type="Int32" />
+          <Property Name="Knt_FCzynnosci" Type="Byte" Nullable="false" />
+          <Property Name="Knt_FCzesci" Type="Byte" Nullable="false" />
+          <Property Name="Knt_KorKraj" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KorMiasto" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KorKodPocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Knt_KorPoczta" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KorUlica" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KorNrDomu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KorNrLokalu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_NieNaliczajOdsetek" Type="Byte" Nullable="false" />
+          <Property Name="Knt_ESklep" Type="Byte" Nullable="false" />
+          <Property Name="Knt_ZwolnionyZAkcyzy" Type="Byte" Nullable="false" />
+          <Property Name="Knt_WindykacjaSchematId" Type="Int32" />
+          <Property Name="Knt_WindykacjaOsobaId" Type="Int32" />
+          <Property Name="Knt_WindykacjaEMail" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Knt_WindykacjaTelefonSms" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Knt_Komornik" Type="Byte" Nullable="false" />
+          <Property Name="Knt_KomornikOkreg" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KomornikMiasto" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Knt_KomornikRewir" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kontrahenci1" Relationship="Self.FK_KntOdbiorca" FromRole="Kontrahenci" ToRole="Kontrahenci1" />
+          <NavigationProperty Name="Kontrahenci2" Relationship="Self.FK_KntOdbiorca" FromRole="Kontrahenci1" ToRole="Kontrahenci" />
+        </EntityType>
+        <Association Name="FK_KntOdbiorca">
+          <End Role="Kontrahenci" Type="Self.Kontrahenci" Multiplicity="0..1" />
+          <End Role="Kontrahenci1" Type="Self.Kontrahenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kontrahenci">
+              <PropertyRef Name="Knt_KntId" />
+            </Principal>
+            <Dependent Role="Kontrahenci1">
+              <PropertyRef Name="Knt_OdbiorcaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kontrahenci" EntityType="Self.Kontrahenci" />
+          <AssociationSet Name="FK_KntOdbiorca" Association="Self.FK_KntOdbiorca">
+            <End Role="Kontrahenci" EntitySet="Kontrahenci" />
+            <End Role="Kontrahenci1" EntitySet="Kontrahenci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CDN_mtestModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Kontrahenci">
+            <EntityTypeMapping TypeName="CDN_mtestModel.Kontrahenci">
+              <MappingFragment StoreEntitySet="Kontrahenci">
+                <ScalarProperty Name="Knt_KntId" ColumnName="Knt_KntId" />
+                <ScalarProperty Name="Knt_PodmiotTyp" ColumnName="Knt_PodmiotTyp" />
+                <ScalarProperty Name="Knt_Kod" ColumnName="Knt_Kod" />
+                <ScalarProperty Name="Knt_GLN" ColumnName="Knt_GLN" />
+                <ScalarProperty Name="Knt_EAN" ColumnName="Knt_EAN" />
+                <ScalarProperty Name="Knt_Grupa" ColumnName="Knt_Grupa" />
+                <ScalarProperty Name="Knt_Nazwa1" ColumnName="Knt_Nazwa1" />
+                <ScalarProperty Name="Knt_Nazwa2" ColumnName="Knt_Nazwa2" />
+                <ScalarProperty Name="Knt_Nazwa3" ColumnName="Knt_Nazwa3" />
+                <ScalarProperty Name="Knt_Kraj" ColumnName="Knt_Kraj" />
+                <ScalarProperty Name="Knt_Wojewodztwo" ColumnName="Knt_Wojewodztwo" />
+                <ScalarProperty Name="Knt_Powiat" ColumnName="Knt_Powiat" />
+                <ScalarProperty Name="Knt_Gmina" ColumnName="Knt_Gmina" />
+                <ScalarProperty Name="Knt_Ulica" ColumnName="Knt_Ulica" />
+                <ScalarProperty Name="Knt_NrDomu" ColumnName="Knt_NrDomu" />
+                <ScalarProperty Name="Knt_NrLokalu" ColumnName="Knt_NrLokalu" />
+                <ScalarProperty Name="Knt_Miasto" ColumnName="Knt_Miasto" />
+                <ScalarProperty Name="Knt_KodPocztowy" ColumnName="Knt_KodPocztowy" />
+                <ScalarProperty Name="Knt_Poczta" ColumnName="Knt_Poczta" />
+                <ScalarProperty Name="Knt_Adres2" ColumnName="Knt_Adres2" />
+                <ScalarProperty Name="Knt_NipKraj" ColumnName="Knt_NipKraj" />
+                <ScalarProperty Name="Knt_NipE" ColumnName="Knt_NipE" />
+                <ScalarProperty Name="Knt_Nip" ColumnName="Knt_Nip" />
+                <ScalarProperty Name="Knt_Regon" ColumnName="Knt_Regon" />
+                <ScalarProperty Name="Knt_Pesel" ColumnName="Knt_Pesel" />
+                <ScalarProperty Name="Knt_Telefon1" ColumnName="Knt_Telefon1" />
+                <ScalarProperty Name="Knt_Telefon2" ColumnName="Knt_Telefon2" />
+                <ScalarProperty Name="Knt_TelefonSms" ColumnName="Knt_TelefonSms" />
+                <ScalarProperty Name="Knt_Fax" ColumnName="Knt_Fax" />
+                <ScalarProperty Name="Knt_Email" ColumnName="Knt_Email" />
+                <ScalarProperty Name="Knt_URL" ColumnName="Knt_URL" />
+                <ScalarProperty Name="Knt_KrajISO" ColumnName="Knt_KrajISO" />
+                <ScalarProperty Name="Knt_Zezwolenie" ColumnName="Knt_Zezwolenie" />
+                <ScalarProperty Name="Knt_KodTransakcji" ColumnName="Knt_KodTransakcji" />
+                <ScalarProperty Name="Knt_BazaBR_GUID" ColumnName="Knt_BazaBR_GUID" />
+                <ScalarProperty Name="Knt_BNaID" ColumnName="Knt_BNaID" />
+                <ScalarProperty Name="Knt_RachunekNr" ColumnName="Knt_RachunekNr" />
+                <ScalarProperty Name="Knt_IBAN" ColumnName="Knt_IBAN" />
+                <ScalarProperty Name="Knt_RachunekNr0" ColumnName="Knt_RachunekNr0" />
+                <ScalarProperty Name="Knt_OsTytul" ColumnName="Knt_OsTytul" />
+                <ScalarProperty Name="Knt_OsPlec" ColumnName="Knt_OsPlec" />
+                <ScalarProperty Name="Knt_OsNazwisko" ColumnName="Knt_OsNazwisko" />
+                <ScalarProperty Name="Knt_OsKraj" ColumnName="Knt_OsKraj" />
+                <ScalarProperty Name="Knt_OsWojewodztwo" ColumnName="Knt_OsWojewodztwo" />
+                <ScalarProperty Name="Knt_OsPowiat" ColumnName="Knt_OsPowiat" />
+                <ScalarProperty Name="Knt_OsGmina" ColumnName="Knt_OsGmina" />
+                <ScalarProperty Name="Knt_OsUlica" ColumnName="Knt_OsUlica" />
+                <ScalarProperty Name="Knt_OsNrDomu" ColumnName="Knt_OsNrDomu" />
+                <ScalarProperty Name="Knt_OsNrLokalu" ColumnName="Knt_OsNrLokalu" />
+                <ScalarProperty Name="Knt_OsMiasto" ColumnName="Knt_OsMiasto" />
+                <ScalarProperty Name="Knt_OsKodPocztowy" ColumnName="Knt_OsKodPocztowy" />
+                <ScalarProperty Name="Knt_OsPoczta" ColumnName="Knt_OsPoczta" />
+                <ScalarProperty Name="Knt_OsAdres2" ColumnName="Knt_OsAdres2" />
+                <ScalarProperty Name="Knt_OsTelefon" ColumnName="Knt_OsTelefon" />
+                <ScalarProperty Name="Knt_OsGSM" ColumnName="Knt_OsGSM" />
+                <ScalarProperty Name="Knt_OsEmail" ColumnName="Knt_OsEmail" />
+                <ScalarProperty Name="Knt_Informacje" ColumnName="Knt_Informacje" />
+                <ScalarProperty Name="Knt_Upust" ColumnName="Knt_Upust" />
+                <ScalarProperty Name="Knt_LimitFlag" ColumnName="Knt_LimitFlag" />
+                <ScalarProperty Name="Knt_LimitKredytu" ColumnName="Knt_LimitKredytu" />
+                <ScalarProperty Name="Knt_LimitPrzeterKredytFlag" ColumnName="Knt_LimitPrzeterKredytFlag" />
+                <ScalarProperty Name="Knt_LimitPrzeterKredytWartosc" ColumnName="Knt_LimitPrzeterKredytWartosc" />
+                <ScalarProperty Name="Knt_Ceny" ColumnName="Knt_Ceny" />
+                <ScalarProperty Name="Knt_FplID" ColumnName="Knt_FplID" />
+                <ScalarProperty Name="Knt_MaxZwloka" ColumnName="Knt_MaxZwloka" />
+                <ScalarProperty Name="Knt_TerminPlat" ColumnName="Knt_TerminPlat" />
+                <ScalarProperty Name="Knt_Termin" ColumnName="Knt_Termin" />
+                <ScalarProperty Name="Knt_KontoOdb" ColumnName="Knt_KontoOdb" />
+                <ScalarProperty Name="Knt_KontoDost" ColumnName="Knt_KontoDost" />
+                <ScalarProperty Name="Knt_KatID" ColumnName="Knt_KatID" />
+                <ScalarProperty Name="Knt_KatZakID" ColumnName="Knt_KatZakID" />
+                <ScalarProperty Name="Knt_BlokadaDok" ColumnName="Knt_BlokadaDok" />
+                <ScalarProperty Name="Knt_LimitKredytuWal" ColumnName="Knt_LimitKredytuWal" />
+                <ScalarProperty Name="Knt_LimitKredytuWykorzystany" ColumnName="Knt_LimitKredytuWykorzystany" />
+                <ScalarProperty Name="Knt_NieRozliczac" ColumnName="Knt_NieRozliczac" />
+                <ScalarProperty Name="Knt_PodatekVat" ColumnName="Knt_PodatekVat" />
+                <ScalarProperty Name="Knt_Finalny" ColumnName="Knt_Finalny" />
+                <ScalarProperty Name="Knt_FinalnyWegiel" ColumnName="Knt_FinalnyWegiel" />
+                <ScalarProperty Name="Knt_Export" ColumnName="Knt_Export" />
+                <ScalarProperty Name="Knt_Rodzaj" ColumnName="Knt_Rodzaj" />
+                <ScalarProperty Name="Knt_Rodzaj_Dostawca" ColumnName="Knt_Rodzaj_Dostawca" />
+                <ScalarProperty Name="Knt_Rodzaj_Odbiorca" ColumnName="Knt_Rodzaj_Odbiorca" />
+                <ScalarProperty Name="Knt_Rodzaj_Konkurencja" ColumnName="Knt_Rodzaj_Konkurencja" />
+                <ScalarProperty Name="Knt_Rodzaj_Partner" ColumnName="Knt_Rodzaj_Partner" />
+                <ScalarProperty Name="Knt_Rodzaj_Potencjalny" ColumnName="Knt_Rodzaj_Potencjalny" />
+                <ScalarProperty Name="Knt_Medialny" ColumnName="Knt_Medialny" />
+                <ScalarProperty Name="Knt_MalyPod" ColumnName="Knt_MalyPod" />
+                <ScalarProperty Name="Knt_Rolnik" ColumnName="Knt_Rolnik" />
+                <ScalarProperty Name="Knt_Nieaktywny" ColumnName="Knt_Nieaktywny" />
+                <ScalarProperty Name="Knt_Chroniony" ColumnName="Knt_Chroniony" />
+                <ScalarProperty Name="Knt_Opis" ColumnName="Knt_Opis" />
+                <ScalarProperty Name="Knt_OdbiorcaId" ColumnName="Knt_OdbiorcaId" />
+                <ScalarProperty Name="Knt_OpiekunTyp" ColumnName="Knt_OpiekunTyp" />
+                <ScalarProperty Name="Knt_OpiekunId" ColumnName="Knt_OpiekunId" />
+                <ScalarProperty Name="Knt_OpiekunKsiegTyp" ColumnName="Knt_OpiekunKsiegTyp" />
+                <ScalarProperty Name="Knt_OpiekunKsiegID" ColumnName="Knt_OpiekunKsiegID" />
+                <ScalarProperty Name="Knt_OpiekunKsiegDomyslny" ColumnName="Knt_OpiekunKsiegDomyslny" />
+                <ScalarProperty Name="Knt_OpiekunPiKTyp" ColumnName="Knt_OpiekunPiKTyp" />
+                <ScalarProperty Name="Knt_OpiekunPiKID" ColumnName="Knt_OpiekunPiKID" />
+                <ScalarProperty Name="Knt_OpiekunPiKDomyslny" ColumnName="Knt_OpiekunPiKDomyslny" />
+                <ScalarProperty Name="Knt_TerminZwrotuKaucji" ColumnName="Knt_TerminZwrotuKaucji" />
+                <ScalarProperty Name="Knt_NaliczajPlatnosc" ColumnName="Knt_NaliczajPlatnosc" />
+                <ScalarProperty Name="Knt_ZakazDokumentowHaMag" ColumnName="Knt_ZakazDokumentowHaMag" />
+                <ScalarProperty Name="Knt_ZgodaNaEFaktury" ColumnName="Knt_ZgodaNaEFaktury" />
+                <ScalarProperty Name="Knt_TypWymiany" ColumnName="Knt_TypWymiany" />
+                <ScalarProperty Name="Knt_PowiazanyUoV" ColumnName="Knt_PowiazanyUoV" />
+                <ScalarProperty Name="Knt_MetodaKasowa" ColumnName="Knt_MetodaKasowa" />
+                <ScalarProperty Name="Knt_UWDId" ColumnName="Knt_UWDId" />
+                <ScalarProperty Name="Knt_UWDOddzial" ColumnName="Knt_UWDOddzial" />
+                <ScalarProperty Name="Knt_UWDEmail" ColumnName="Knt_UWDEmail" />
+                <ScalarProperty Name="Knt_TS_Export" ColumnName="Knt_TS_Export" />
+                <ScalarProperty Name="Knt_ImportAppId" ColumnName="Knt_ImportAppId" />
+                <ScalarProperty Name="Knt_ImportRowId" ColumnName="Knt_ImportRowId" />
+                <ScalarProperty Name="Knt_OpeZalID" ColumnName="Knt_OpeZalID" />
+                <ScalarProperty Name="Knt_StaZalId" ColumnName="Knt_StaZalId" />
+                <ScalarProperty Name="Knt_TS_Zal" ColumnName="Knt_TS_Zal" />
+                <ScalarProperty Name="Knt_OpeModID" ColumnName="Knt_OpeModID" />
+                <ScalarProperty Name="Knt_StaModId" ColumnName="Knt_StaModId" />
+                <ScalarProperty Name="Knt_TS_Mod" ColumnName="Knt_TS_Mod" />
+                <ScalarProperty Name="Knt_GIDTyp" ColumnName="Knt_GIDTyp" />
+                <ScalarProperty Name="Knt_GIDFirma" ColumnName="Knt_GIDFirma" />
+                <ScalarProperty Name="Knt_GIDNumer" ColumnName="Knt_GIDNumer" />
+                <ScalarProperty Name="Knt_GIDLp" ColumnName="Knt_GIDLp" />
+                <ScalarProperty Name="Knt_eSklepID" ColumnName="Knt_eSklepID" />
+                <ScalarProperty Name="Knt_FCzynnosci" ColumnName="Knt_FCzynnosci" />
+                <ScalarProperty Name="Knt_FCzesci" ColumnName="Knt_FCzesci" />
+                <ScalarProperty Name="Knt_KorKraj" ColumnName="Knt_KorKraj" />
+                <ScalarProperty Name="Knt_KorMiasto" ColumnName="Knt_KorMiasto" />
+                <ScalarProperty Name="Knt_KorKodPocztowy" ColumnName="Knt_KorKodPocztowy" />
+                <ScalarProperty Name="Knt_KorPoczta" ColumnName="Knt_KorPoczta" />
+                <ScalarProperty Name="Knt_KorUlica" ColumnName="Knt_KorUlica" />
+                <ScalarProperty Name="Knt_KorNrDomu" ColumnName="Knt_KorNrDomu" />
+                <ScalarProperty Name="Knt_KorNrLokalu" ColumnName="Knt_KorNrLokalu" />
+                <ScalarProperty Name="Knt_NieNaliczajOdsetek" ColumnName="Knt_NieNaliczajOdsetek" />
+                <ScalarProperty Name="Knt_ESklep" ColumnName="Knt_ESklep" />
+                <ScalarProperty Name="Knt_ZwolnionyZAkcyzy" ColumnName="Knt_ZwolnionyZAkcyzy" />
+                <ScalarProperty Name="Knt_WindykacjaSchematId" ColumnName="Knt_WindykacjaSchematId" />
+                <ScalarProperty Name="Knt_WindykacjaOsobaId" ColumnName="Knt_WindykacjaOsobaId" />
+                <ScalarProperty Name="Knt_WindykacjaEMail" ColumnName="Knt_WindykacjaEMail" />
+                <ScalarProperty Name="Knt_WindykacjaTelefonSms" ColumnName="Knt_WindykacjaTelefonSms" />
+                <ScalarProperty Name="Knt_Komornik" ColumnName="Knt_Komornik" />
+                <ScalarProperty Name="Knt_KomornikOkreg" ColumnName="Knt_KomornikOkreg" />
+                <ScalarProperty Name="Knt_KomornikMiasto" ColumnName="Knt_KomornikMiasto" />
+                <ScalarProperty Name="Knt_KomornikRewir" ColumnName="Knt_KomornikRewir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

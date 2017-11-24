@@ -1,0 +1,33 @@
+﻿@model Netblaster.Hermes.WebUI.Models.Contact.ContactListViewModel
+
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        @Html.Partial("_PageFilterHeader")
+        <div class="panel-footer">
+            @Html.Partial("_FilterBoxForm", Model.FilterBox)
+        </div>
+    </div>
+</div>
+<div id="ajax-list-grid">
+    @Html.Partial("_PagedListPartial", Model.ListData)
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/PagedLists/PagedListWithFilter.js"></script>
+    <script>
+        $('.datetime').datepicker({ format: "dd.mm.yyyy", language: "pl", locale: "pl" });
+        $(document).ready(function () {
+            $('#page-size').val('25');
+        });
+
+        $(document).on("click",
+            ".audit-row",
+            function () {
+
+                var id = $(this).attr("element-id");
+                window.location = "/Contact/Details/" + id;
+            });
+
+    </script>
+
+}

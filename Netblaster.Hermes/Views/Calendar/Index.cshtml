@@ -1,0 +1,197 @@
+﻿@model int?
+@using System.Web.Optimization
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    @*<li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>*@
+                    <li>
+                        <span>App views</span>
+                    </li>
+                    <li class="active">
+                        <span>Kalendarz</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Kalendarz
+            </h2>
+            <small>Zadania oraz wydarzenia przedstawione w formie kalendarza.</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div class="col-sm-3 form-group">
+                <label for="SelectedGroupId">Zadania grupy:</label>
+                <select id="SelectedGroupId" name="SelectedGroupId" class="form-control">
+                    @foreach (var user in (List<SelectListItem>) ViewBag.AvailableGroups)
+                    {
+                        <option class="form-control" value="@user.Value">@user.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Styles {
+    @Styles.Render("~/bundles/fullCalendar/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/fullCalendar/js")
+
+    <script type="text/javascript">
+
+        $(document).on("change",
+            "#SelectedGroupId",
+            function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/Calendar/GetCalendarItems?id=" + $(this).val(),
+                    cache: false,
+                    success: function (data) {
+                        $("#calendar").fullCalendar('removeEvents'); 
+                        $("#calendar").fullCalendar('addEventSource', data); 
+                    }
+                });
+
+            });
+
+        var loadCalendarItems = function () {
+            $.ajax({
+                method: "GET",
+                url: "/Calendar/GetCalendarItems",
+                cache: false,
+                success: function (data) {
+                    initCalendar(data, "CurrentCalendar");
+                }
+            });
+        };
+
+        var initCalendar = function (calendarItems, containerId) {
+
+            // Init calendar
+            $("#calendar").fullCalendar({
+                header: {
+                    left: "prev,next today",
+                    center: "title",
+                    right: "month,agendaWeek,agendaDay"
+                },
+                timezone: 'local',
+                editable: false,
+                droppable: false,
+                events: calendarItems,
+                eventRender: function (event, element, view) {
+                    element.attr("customCalendarItemId", event.customCalendarItemId);
+                    element.attr("customAssignedToDisplay", event.customAssignedToDisplay);
+                    element.attr("customCreatedByDisplay", event.customCreatedByDisplay);
+                    var template = "";
+
+
+                    var popOverHtml = "<div style='font-size:11px;overflow-x:hidden'>" + event.startDisplay + "<br/>" +
+                        "<i class='fa fa-file-text-o margin-right-xs'></i>" + escapeHtml(event.title) + "<br/>" +
+                        "<i class='fa fa-user-circle margin-right-xs'></i>" + event.customAssignedToDisplay + "<br/>"
+                        + event.statusDisplay + "</div>";
+
+                    template = '<a href="/Task/Details/' + event.ID + '" style="border-width:2px;background-color:' + event.backgroundColor + '; border-color: #000" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="' + popOverHtml + '" class="fc-status-' + event.statusDisplay + ' fc-day-grid-event fc-event fc-start fc-end fc-draggable event-' + event.customCalendarItemClass + '" customscheduleritemid="' + event.customSchedulerItemId + '" customscriptname="' + event.customScriptName + '">';
+                    template += '<div class="fc-content">';
+                    template += '<div class="fc-time">' + event.startDisplay + '</div>';
+                    template += '<div class="fc-title"><i class="fa fa-file-text-o margin-right-xs"></i>' +
+                        escapeHtml(event.title) +
+                        '</div>';
+                    template += '<div class="fc-title"><i class="fa fa-user-circle margin-right-xs"></i>' +
+                        event.customAssignedToDisplay +
+                        '</div>';
+                    template += '<div class="fc-title">' + event.statusDisplay + '</div>';
+                    template += '</div></a>';
+
+                    return $(template);
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+
+                    if (!calEvent.customPreviewOnly) {
+                        getSchedulerItemDetails(calEvent.customSchedulerItemId);
+                    }
+
+                },
+                eventAfterAllRender: function (view) {
+
+                    $('[data-toggle="popover"]').popover({ html: true, container: 'body' });
+                }
+            });
+
+            $("#" + containerId).find(".fc-today-button").click();
+        };
+
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        $(function () {
+
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+
+            $('#external-events div.external-event').each(function () {
+
+                // store data so the calendar knows to render an event upon drop
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true // maintain when user navigates (see docs on the renderEvent method)
+                });
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 1111999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+            });
+
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            loadCalendarItems();
+
+        });
+
+    </script>
+}

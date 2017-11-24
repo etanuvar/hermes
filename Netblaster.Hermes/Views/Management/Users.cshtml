@@ -1,0 +1,73 @@
+﻿@using Netblaster.Hermes.DAL.Model
+@model List<Netblaster.Hermes.WebUI.Models.Management.UserDetailsViewModel>
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                @*<ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                    <li>
+                        <span>App views</span>
+                    </li>
+                    <li class="active">
+                        <span>Contacts</span>
+                    </li>
+                </ol>*@
+            </div>
+            <h2 class="font-light m-b-xs">
+                Użytkownicy
+            </h2>
+            <small>Pracownicy korzystający z aplikacji</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="row">
+        @foreach (var user in Model)
+        {
+            <div class="col-lg-3">
+            <a href="/User/Details/@user.ApplicationUser.Id">
+                <div class="hpanel hgreen contact-panel">
+                    <div class="panel-body">
+                        @if ((DateTime.Now - user.ApplicationUser.CreateDate).TotalDays < 7)
+                        {
+                            <span class="label label-success pull-right">NOWY</span>  
+                        }
+
+                        <img src="@user.ApplicationUser.PhotoImage" class="img-circle m-b" alt="logo" style="width: 75px; height: 75px;">
+                        <h3>@user.ApplicationUser.DisplayName</h3>
+                        <div class="text-muted font-bold m-b-xs">@user.ApplicationUser.JobTitle</div>
+                        <p>E-mail: <b>@user.ApplicationUser.Email</b></p>
+                        <p>Numer telefonu: @user.ApplicationUser.PhoneNumber</p>
+                        <p>Dołączył: @user.ApplicationUser.CreateDate</p>
+                        <p>Ostatnie logowanie: @user.ApplicationUser.LastLoginDate</p> 
+                        
+                    </div>
+                    <div class="panel-footer contact-footer">
+                        <div class="row">
+                            <div class="col-md-6 border-right">
+                                <div class="contact-stat"><span>Kontakty: </span> <strong>@user.ContactCount</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="contact-stat"><span>Zadania: </span> <strong>@user.TaskCount</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </div>
+        }
+
+    </div>
+</div>

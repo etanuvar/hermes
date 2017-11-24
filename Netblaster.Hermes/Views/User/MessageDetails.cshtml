@@ -1,0 +1,55 @@
+﻿@model Netblaster.Hermes.DAL.Model.UserMessage
+
+
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <a href="/User/Messages" class="btn btn-sm btn-primary margin-right-xs">
+                        <i class="fa fa-arrow-left margin-right-xs"></i>Wiadomości
+                    </a>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @Model.CreateDate
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="stats-title pull-left">
+                                <h4>Wiadomość od @Model.SenderDisplayName</h4>
+                            </div>
+                            <div class="stats-icon text-right">
+                                <i class="fa fa-envelope-o fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-sm">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Treść wiadomości</label>
+                                @Html.TextAreaFor(x => x.Text, new { @class="form-control", @disabled="disabled"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,108 @@
+﻿@using Netblaster.Hermes.WebUI.Helpers
+@using Netblaster.Hermes.WebUI.Models.Client
+@model Netblaster.Hermes.WebUI.Models.Contact.AddContactViewModel
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="stats-title pull-left">
+            <h4><i class="fa fa-plus margin-right-xs"></i>Dodawanie nowego kontaktu</h4>
+        </div>
+        <div class="stats-icon text-right">
+            <i class="fa fa-calendar-check-o fa-2x"></i>
+        </div>
+    </div>
+</div>
+@Html.HiddenFor(x => x.ApplicationUserId)
+
+<div class="row margin-top-sm">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Użytkownik</label>
+            <input class="form-control form-control-sm" disabled="disabled" value="@(Model.ApplicationUser.FirstName + " " + @Model.ApplicationUser.LastName)"/>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateDate)
+            <div class="input-group">
+                @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control form-control-sm datetime" } })
+                <span class="input-group-addon">
+                    <span class="fa fa-calendar-check-o"></span>
+                </span>
+            </div>
+            @Html.ValidationMessageFor(model => Model.CreateDate)
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateTime)
+            <div class="input-group clockpicker" data-autoclose="true">
+                @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                <span class="input-group-addon">
+                    <span class="fa fa-clock-o"></span>
+                </span>
+            </div>
+            @Html.ValidationMessageFor(model => Model.CreateTime)
+        </div>
+    </div>
+</div>
+                    
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.KntId)
+            @Html.HiddenFor(model => model.KntId)
+            <div class="input-group">
+                <input id="ClientDisplay" name="ClientDisplay" class="form-control form-control-sm" value="@Model.ClientDisplay"/>
+                <span class="input-group-addon">
+                    <a id="search-click"><span class="fa fa-search"></span></a>
+                </span>
+            </div>
+            @Html.ValidationMessageFor(model => Model.KntId)
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+        <div class="form-group">
+            @if (Model.IsImported)
+            {
+                @Html.HiddenFor(x => x.SelectedContactType)
+                @Html.LabelFor(model => model.SelectedContactType)
+                @Html.EditorFor(model => Model.SelectedContactType, new { htmlAttributes = new { @class = "form-control form-control-sm", @disabled="disabled" } })
+            }
+            else
+            {
+                @Html.LabelFor(model => model.SelectedContactType)
+                @Html.DropDownListFor(model => Model.SelectedContactType, Model.ContactTypes, "Wybierz rodzaj kontaktu...", new {@class = "form-control form-control-sm"})
+                @Html.ValidationMessageFor(model => Model.SelectedContactType)
+                <small>Typy kontaktów można definiować w konfiguracji. Jeżeli brakuje tu kategorii, skontaktuj się z administratorem.</small>
+            }
+
+
+        </div>
+    </div>
+</div>
+                    
+<div class="row">
+    <div class="col-xs-12">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note)
+            @Html.TextAreaFor(model => Model.Note, new {@class = "form-control form-control-sm", @rows = 10 })
+            @Html.ValidationMessageFor(model => Model.Note)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-1">
+        @Html.CheckBoxFor(model => Model.AddTaskAfterContact, new {@class = "form-control form-control-sm pull-left" })
+    </div>
+    <div class="col-xs-11" style="padding-top: 10px">@Html.LabelFor(model => model.AddTaskAfterContact)</div>
+</div>
+
+@Html.HiddenFor(x => x.UniqueId)

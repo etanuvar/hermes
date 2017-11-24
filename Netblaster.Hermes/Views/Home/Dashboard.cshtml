@@ -1,0 +1,209 @@
+﻿@model Netblaster.Hermes.WebUI.Models.Home.DashboardViewModel
+@using System.Web.Optimization
+
+<div class="content animate-panel">
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="hpanel stats">
+                <div class="panel-body h-200">
+                    <div class="stats-title pull-left">
+                        <h4>Kontakty</h4>
+                    </div>
+                    <div class="stats-icon pull-right">
+                        <i class="pe-7s-call fa-3x"></i>
+                    </div>
+                    <div class="m-t-xl">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <span class="font-bold no-margins">
+                                    Wszystkie kontakty
+                                </span>
+                                <h1 class="text-success">@Model.AllContactsCount</h1>
+                            </div>
+                            <div class="col-xs-7">
+                                <span class="font-bold no-margins">
+                                    Twoje kontakty
+                                </span>
+                                <h1 class="text-success">@Model.AllContactsByYou</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t-xs">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <small class="stat-label">Zarejestrowane dzisiaj:</small>
+                                <h3>@Model.AllContactsToday</h3>
+                            </div>
+                            <div class="col-xs-7">
+                                <small class="stat-label">Zarejestrowane dzisiaj przez Ciebie:</small>
+                                <h3>@Model.AllContactsTodayByYou<i class="fa fa-level-up text-success"></i></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="/Contact/Index">Do listy kontaktów</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="hpanel stats">
+                <div class="panel-body h-200">
+                    <div class="stats-title pull-left">
+                        <h4>Zadania użytkowników</h4>
+                    </div>
+                    <div class="stats-icon pull-right">
+                        <i class="pe-7s-tasks fa-4x"></i>
+                    </div>
+                    <div class="m-t-xl">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <span class="font-bold no-margins">
+                                    Wszystkie zadania
+                                </span>
+                                <h1 class="text-success">@Model.AllTasksCount</h1>
+                            </div>
+                            <div class="col-xs-7">
+                                <span class="font-bold no-margins">
+                                    Zarejestrowane przez Ciebie
+                                </span>
+                                <h1 class="text-success">@Model.AllTaskByYou</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t-xs">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <small class="stat-label">Zarejestrowane dzisiaj:</small>
+                                <h3>@Model.AllTaskToday</h3>
+                            </div>
+                            <div class="col-xs-7">
+                                <small class="stat-label">Zarejestrowane dzisiaj przez Ciebie:</small>
+                                <h3>@Model.AllTaskTodayByYou<i class="fa fa-level-up text-success"></i></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="/Task/Index">Do listy zadań</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="hpanel stats">
+                <div class="panel-body h-200">
+                    <div class="stats-title pull-left">
+                        <h4>Kontakty</h4>
+                    </div>
+                    <div class="stats-icon pull-right">
+                        <i class="pe-7s-graph2 fa-4x"></i>
+                    </div>
+                    <div class="m-t-xl">
+                        <div>
+                            <canvas id="lineOptionsContact" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="/Contact/Index">Do listy kontaktów</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="hpanel stats">
+                <div class="panel-body h-200">
+                    <div class="stats-title pull-left">
+                        <h4>Zadania</h4>
+                    </div>
+                    <div class="stats-icon pull-right">
+                        <i class="pe-7s-graph2 fa-4x"></i>
+                    </div>
+                    <div class="m-t-xl">
+                        <div>
+                            <canvas id="lineOptionsTask" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="/Task/Index">Do listy zadań</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/flot/js")
+    @Scripts.Render("~/bundles/chartjs/js")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            var lineTaskData = {
+                labels: [@Html.Raw(ViewBag.FinishedTasksDates)],
+                datasets: [
+
+                    {
+                        label: "Zakończone zadania",
+                        backgroundColor: 'rgba(98,203,49, 0.5)',
+                        pointBorderWidth: 1,
+                        pointBackgroundColor: "rgba(98,203,49,1)",
+                        pointRadius: 3,
+                        pointBorderColor: '#ffffff',
+                        borderWidth: 1,
+                        data: [@Html.Raw(ViewBag.FinishedTaskValues)]
+                    },
+                    {
+                        label: "Rozpoczęte zadania",
+                        backgroundColor: 'rgba(220,220,220,0.5)',
+                        borderColor: "rgba(220,220,220,0.7)",
+                        pointBorderWidth: 1,
+                        pointBackgroundColor: "rgba(220,220,220,1)",
+                        pointRadius: 3,
+                        pointBorderColor: '#ffffff',
+                        borderWidth: 1,
+                        data: [@Html.Raw(ViewBag.StartedTaskValues)]
+                    }
+                ]
+            };
+
+            var lineContactData = {
+                labels: [@Html.Raw(ViewBag.FinishedTasksDates)],
+                datasets: [
+
+                    {
+                        label: "Zarejestrowane kontakty",
+                        backgroundColor: 'rgba(98,203,49, 0.5)',
+                        pointBorderWidth: 1,
+                        pointBackgroundColor: "rgba(98,203,49,1)",
+                        pointRadius: 3,
+                        pointBorderColor: '#ffffff',
+                        borderWidth: 1,
+                        data: [@Html.Raw(ViewBag.FinishedTaskValues)]
+                    }
+                ]
+            };
+
+            var lineOptions = {
+                responsive: true
+            };
+
+            var ctx = document.getElementById("lineOptionsTask").getContext("2d");
+            new Chart(ctx, { type: 'line', data: lineTaskData, options: lineOptions });
+
+            var ctx = document.getElementById("lineOptionsContact").getContext("2d");
+            new Chart(ctx, { type: 'line', data: lineContactData, options: lineOptions });
+        });
+    </script>
+}

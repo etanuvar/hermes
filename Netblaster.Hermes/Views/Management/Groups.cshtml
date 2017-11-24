@@ -1,0 +1,199 @@
+﻿@using Netblaster.Hermes.DAL.Model
+@model Netblaster.Hermes.WebUI.Models.Management.GroupListViewModel
+@{
+    var currentUser = (ApplicationUser)ViewBag.CurrentUser;    
+}
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "Dashboard")">Dashboard</a></li>
+                    <li>
+                        <span>Interface</span>
+                    </li>
+                    <li class="active">
+                        <span>Grupy użytkowników</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Grupy użytkowników
+            </h2>
+            <small>Określają widoczność elementów w aplikacji.</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="hpanel">
+                <div class="panel-heading hbuilt" style="height:60px">
+                    <div class="panel-tools">
+                        @if (currentUser.HasClaim("Administrator"))
+                        {
+                            <button type="button" class="btn btn-sm btn-primary margin-right-xs"
+                                    data-toggle="modal" data-target="#addGroupModal">
+                                <i class="fa fa-edit margin-right-xs"></i>Dodaj nową grupę
+                            </button>  
+                        }
+                    </div>
+                    Lista zarejestrowanych grup
+                </div>
+                <div class="panel-body">
+                    @*<div class="text-center m-b-md">
+                        <h3>Accordion</h3>
+                        <small>The accordion directive builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.</small><br />
+                    </div>*@
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                       @Html.Partial("Partial/_UsersInGroupPartial", Model.Groups)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Dodaj użytkownika</h4>
+                <small class="font-bold">Przydziel użytkownika do grupy.</small>
+            </div>
+            @using (Ajax.BeginForm("AddUserForGroup", "Management", new AjaxOptions() { HttpMethod = "POST", OnComplete = "updateResultUser" }))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input type="hidden" id="SelectedGroupId" name="SelectedGroupId"/>
+                            <div class="form-group">
+                                <label>Użytkownik</label>
+                                <select id="SelectedUserId" name="SelectedUserId" class="form-control form-control-sm" required="required">
+                                    @foreach (var user in Model.Users)
+                                    {
+                                        <option value="@user.Value">@user.Text</option>
+                                    }
+                                </select>
+                                <div id="summaryUser"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Dodaj grupę</h4>
+                <small class="font-bold">Dodaj nową aktywną grupę.</small>
+            </div>
+            @using (Ajax.BeginForm("AddGroup", "Management", new AjaxOptions() { HttpMethod = "POST", OnComplete = "updateResultGroup" }))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NewGroupName)
+                                @Html.TextBoxFor(model => Model.NewGroupName, new { @class = "form-control form-control-sm", @required="required" })
+                                @Html.ValidationMessageFor(model => Model.NewGroupName)
+                                <div id="summaryGroup"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).on("click",
+            ".add-user-btn",
+            function() {
+                var id = $(this).attr("element-id");
+                $("#SelectedGroupId").val(id);
+            });
+
+        $(document).on("click",
+            ".delete-group-btn",
+            function() {
+                var id = $(this).attr("element-id");
+
+                swal({
+                        title: 'Jesteś pewnien?',
+                        text: "Jeśli to ostatnia grupa dla użytkownika, nie będzie miał on dostępu do aplikacji.",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Tak, usuń'
+                    },
+                    function(isConfirm) {
+                        if (isConfirm) {
+                            onConfirmFun(id);
+                        }
+                    });
+        });
+
+        var onConfirmFun = function(id) {
+            $.get("/Management/DeleteGroup?id=" + id,
+                function(result) {
+                    window.location = '/Management/Groups';
+                });
+
+        };
+
+        var updateResultUser = function(result) {
+
+            if (result.responseJSON.Success) {
+                $("#accordion").html(result.responseJSON.Content);
+                $("#summaryUser").text("");
+                $("#addUserModal").modal('toggle');
+            } else {
+                $("#summaryUser").text(result.responseJSON.Message);
+            }
+
+        }
+
+        var updateResultGroup = function(result) {
+
+            if (result.responseJSON.Success) {
+                $("#accordion").html(result.responseJSON.Content);
+                $("#summaryGroup").text("");
+                $("#addGroupModal").modal('toggle');
+            } else {
+                $("#summaryGroup").text(result.responseJSON.Message);
+            }
+
+        }
+    </script>
+}

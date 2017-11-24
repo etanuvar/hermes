@@ -1,0 +1,103 @@
+﻿@using Netblaster.Hermes.DAL.Model
+@{
+    var user = (ApplicationUser)Session["ApplicationUser"];
+    var unreadMsgCount = user.UserMessages.Count(x => x.IsRead == false);
+}
+
+<div class="color-line">
+</div>
+<div id="logo" class="light-version">
+    <span>
+        Hermes CRM
+    </span>
+</div>
+<nav role="navigation">
+    <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+    <div class="small-logo">
+        <span class="text-primary">Hermes CRM</span>
+    </div>
+    <form role="search" class="navbar-form-custom" method="post" action="#">
+        <div class="form-group">
+            <input type="text" placeholder="Wyszukiwarka" class="form-control" name="search">
+        </div>
+    </form>
+    <div class="mobile-menu">
+        <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+            <i class="fa fa-chevron-down"></i>
+        </button>
+        <div class="collapse mobile-navbar" id="mobile-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="" href="@Url.Action("Login", "CommonViews")">Login</a>
+                </li>
+                <li>
+                    <a class="" href="@Url.Action("Register", "CommonViews")">Logout</a>
+                </li>
+                <li>
+                    <a class="" href="@Url.Action("ProfilePage", "AppViews")">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="navbar-right">
+        <ul class="nav navbar-nav no-borders">
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                    <i class="pe-7s-speaker"></i>
+                </a>
+                @*<ul class="dropdown-menu hdropdown notification animated flipInX">
+                    <li>
+                        <a>
+                            <span class="label label-success">NEW</span> Wydarzenie
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="label label-warning">WAR</span> Wydarzenie
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="label label-danger">ERR</span> Wydarzenie
+                        </a>
+                    </li>
+                    <li class="summary"><a href="#">Zobacz wszystkie wydarzenia</a></li>
+                </ul>*@
+            </li>
+         
+            <li class="dropdown">
+                <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
+                    <i class="pe-7s-mail"></i>
+                    @if (unreadMsgCount > 0)
+                    {
+                        <span class="label label-danger">@unreadMsgCount</span>
+                    }
+                </a>
+                <ul class="dropdown-menu hdropdown animated flipInX">
+                    <div class="title">
+                        Masz @unreadMsgCount nieprzeczytanych wiadomości
+                    </div>
+                    @foreach (var msg in user.UserMessages.Where(x =>!x.IsRead))
+                    {
+                        <li>
+                            <a href="/User/MessageDetails/@msg.Id">
+                                @msg.Text (od @msg.SenderDisplayName)
+                            </a>
+                        </li>
+                    }
+                    <li class="summary"><a href="/User/Messages">Przejdź do wiadomości</a></li>
+                </ul>
+            </li>
+            @*<li>
+                <a href="#" id="sidebar" class="right-sidebar-toggle">
+                    <i class="pe-7s-upload pe-7s-news-paper"></i>
+                </a>
+            </li>*@
+            <li class="dropdown">
+                <a href="/Authorize/LogOff">
+                    <i class="pe-7s-upload pe-rotate-90"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

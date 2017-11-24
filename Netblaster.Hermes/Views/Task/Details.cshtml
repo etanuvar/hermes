@@ -1,0 +1,250 @@
+﻿@using Netblaster.Hermes.DAL.Extensions
+@using Netblaster.Hermes.DAL.Model
+@using Netblaster.Hermes.DAL.Model.Enums
+@using Netblaster.Hermes.WebUI.Helpers
+@using WebGrease.Css.Extensions
+@model Netblaster.Hermes.WebUI.Models.Task.TaskDetailsViewModel
+@{
+    var currentUser = (ApplicationUser)ViewBag.CurrentUser;
+}
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <a href="/Task/Index" class="btn btn-sm btn-default margin-right-xs">
+                        <i class="fa fa-arrow-left margin-right-xs"></i>Lista zadań
+                    </a>
+                    <button type="button" class="btn btn-sm btn-primary margin-right-xs"
+                            data-toggle="modal" data-target="#addCommentModal">
+                        <i class="fa fa-edit margin-right-xs"></i>Dodaj komentarz
+                    </button>
+                    
+                    @if (!Model.TaskSubItems.Any() && Model.CreatedById == currentUser.Id && (Model.ItemStatus == TaskItemStatus.Pending || Model.ItemStatus == TaskItemStatus.Done))
+                    {
+                        <a type="button" href="/Task/SetInProgress?id=@Model.Id" class="btn btn-sm btn-warning margin-right-xs">
+                            <i class="fa fa-cog margin-right-xs"></i>W trakcie
+                        </a> 
+                    }
+                    @if (!Model.TaskSubItems.Any() && Model.CreatedById == currentUser.Id && (Model.ItemStatus == TaskItemStatus.InProgress || Model.ItemStatus == TaskItemStatus.Pending))
+                    {
+                        <a type="button" href="/Task/SetAsDone?id=@Model.Id" class="btn btn-sm btn-success margin-right-xs">
+                            <i class="fa fa-check-square-o"></i> Wykonane
+                        </a> 
+                    }
+                    @if (Model.CreatedById == currentUser.Id && Model.ItemStatus != TaskItemStatus.Done && Model.ItemStatus != TaskItemStatus.Rejected)
+                    {
+                        <a type="button" href="/Task/SetRejected?id=@Model.Id" class="btn btn-sm btn-danger margin-right-xs">
+                            <i class="fa fa-trash margin-right-xs"></i>Odrzuć zadanie
+                        </a>  
+                    }
+
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @Model.Title
+            </h2>
+            <div class="font-normal">@Model.CreateDate</div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        
+        <div class="col-lg-12 animated-panel fadeInRight" style="animation-delay: 0.1s;">
+            <div class="hpanel">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-edit margin-right-xs"></i> Zadanie</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-clock-o margin-right-xs"></i> Historia</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-paperclip margin-right-xs"></i> Załączniki</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body" >
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div id="baseInfo">
+                                        @Html.Partial("Partial/_TaskInfoPartial", Model)
+                                    </div>
+                                    <div id="subItems">
+                                        @Html.Partial("Partial/_TaskSubItemsPartial", Model.TaskSubItems)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <h5><i class="fa fa-comments margin-right-xs"></i>Komentarze (@Model.TaskDetails.Count(x => x.TaskDetailType == TaskDetailType.TaskComment))</h5>
+                            <br/>
+                            @foreach (var historyItem in Model.TaskDetails.ToList().Where(x => x.TaskDetailType == TaskDetailType.TaskComment).OrderByDescending(x => x.CreateDate))
+                            {
+                                <div class="social-talk animate-panel" data-delay="1">
+                                    <div class="media social-profile clearfix">
+                                        <a class="pull-left">
+                                            <img src="@historyItem.ApplicationUser.PhotoImage" alt="profile-picture">
+                                        </a>
+
+                                        <div class="media-body">
+                                            <span class="font-bold">@historyItem.ApplicationUser.DisplayName</span>
+                                            <small class="text-muted">@historyItem.CreateDate</small>
+
+                                            <div class="social-content">
+                                                @historyItem.Text
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <h5><i class="fa fa-history margin-right-xs"></i>Historia (@Model.TaskDetails.Count(x => x.TaskDetailType == TaskDetailType.TaskHistory))</h5>
+                            @foreach (var historyItem in Model.TaskDetails.ToList().Where(x => x.TaskDetailType == TaskDetailType.TaskHistory).OrderByDescending(x => x.CreateDate))
+                            {
+                                <div class="vertical-timeline-block" style="">
+                                    <div class="vertical-timeline-icon navy-bg">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <div class="p-sm">
+                                            <span class="vertical-date pull-right"> <br> <small>@historyItem.CreateDate</small> </span>
+
+                                            <p>@historyItem.Text
+                                            </p>
+                                        </div>
+                                        <div class="panel-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <h5><i class="fa fa-paperclip margin-right-xs"></i>Załączniki (@Model.Attachments.Count)</h5>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    @foreach (var attachment in Model.Attachments)
+                                    {
+                                        <div class="col-md-3">
+                                            <a href="/Other/DownloadFile/@attachment.Id">
+                                                <div class="hpanel">
+                                                    <div class="panel-body file-body">
+                                                        <i class="fa @(attachment.MimeType.MapMimeTypeToIcon()) text-info"></i>
+                                                    </div>
+                                                    <div class="panel-footer">
+                                                        @attachment.FileName
+
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Dodaj użytkownika</h4>
+                <small class="font-bold">Przydziel użytkownika do obecnego zadania.</small>
+            </div>
+            @using (Html.BeginForm("AttachUser", "Task", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.Id)
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SelectedUserId)
+                                @Html.DropDownListFor(model => Model.SelectedUserId, Model.Users, "Wybierz użytkownika...", new {@class = "form-control form-control-sm"})
+                                @Html.ValidationMessageFor(model => Model.SelectedUserId)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div> 
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Dodaj komentarz</h4>
+                <small class="font-bold">Dodaj komentarz do realizowanego zadania.</small>
+            </div>
+            @using (Html.BeginForm("AddComment", "Task", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.Id)
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Comment)
+                                @Html.TextAreaFor(model => Model.Comment, new {@class = "form-control form-control-sm"})
+                                @Html.ValidationMessageFor(model => Model.Comment)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).on("change",
+            ".IsFinished",
+            function () {
+                var id = $(this).attr("element-id");
+                var newValue = $(this).is(':checked');
+
+                $.ajax({
+                    url: "/Task/SetSubItem?id=" + id + "&newValue=" + newValue,
+                }).done(function (result) {
+
+                    $("#baseInfo").html(result.BaseInfo);
+                    $("#subItems").html(result.SubItems);
+
+                    swal({
+                        title: "Potwierdzenie",
+                        text: "Zmieniono status podzadania.",
+                        type: "success"
+                    });
+                    });
+
+            });
+
+    </script>
+}

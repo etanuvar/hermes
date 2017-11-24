@@ -1,0 +1,43 @@
+﻿@using Netblaster.Hermes.DAL.Model
+@model IEnumerable<Netblaster.Hermes.WebUI.Models.Management.UserGroupViewModel>
+@{
+    var currentUser = (ApplicationUser)ViewBag.CurrentUser;
+}
+
+@foreach (var group in Model)
+{
+     <div class="panel panel-default">
+         <div class="panel-heading" role="tab" id="heading-@group.Id">
+             <h4 class="panel-title">
+                 <a data-parent="#accordion" href="#collapseOne-@group.Id" aria-expanded="true" aria-controls="collapseOne-@group.Id">
+                     @group.Name
+                 </a> 
+                 <div class="pull-right">
+                     @if (currentUser.HasClaim("Administrator"))
+                     {
+                         <button type="button" class="btn btn-xs btn-success margin-right-xs add-user-btn" element-id="@group.Id"
+                                 data-toggle="modal" data-target="#addUserModal">
+                             <i class="fa fa-plus margin-right-xs"></i>Dodaj użytkownika
+                         </button>
+                         <button type="button" class="btn btn-xs btn-danger margin-right-xs delete-group-btn" element-id="@group.Id">
+                             <i class="fa fa-trash margin-right-xs"></i>Usuń grupę
+                         </button> 
+                     }
+                 </div>
+             </h4>
+         </div>
+         <div id="collapseOne-@group.Id" class="panel" role="tabpanel" aria-labelledby="heading-@group.Id">
+             <div class="panel-body">
+
+                 @foreach (var user in group.UserGroups)
+                 {
+                     <p>@if (currentUser.HasClaim("Administrator"))
+                     {
+                        <a href="@Url.Action("DeleteUser", "Management", new { id = user.Id })" class="btn btn-xs btn-danger margin-right-sm"> <i class="fa fa-times"></i></a>
+                     }
+                     @user.ApplicationUser.DisplayName</p>
+                 }
+             </div>
+         </div>
+     </div> 
+ }

@@ -1,0 +1,115 @@
+﻿@model Netblaster.Hermes.WebUI.Models.User.UserMessagesViewModel
+
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <h2 class="font-light m-b-xs">
+                Wiadomości
+            </h2>
+            <div class="pull-right">
+                <button type="button" id="banUser" class="btn btn-sm btn-primary margin-right-xs"
+                        data-toggle="modal" data-target="#sendMessage">
+                    <i class="fa fa-envelope margin-right-xs"></i>Wyślij wiadomość
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="hpanel">
+                <div class="panel-body">
+
+                    <ul class="mailbox-list nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-1">
+                                <i class="fa fa-envelope"></i> Skrzynka odbiorcza
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab-2"><i class="fa fa-paper-plane"></i> Wysłane</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab-3"><i class="fa fa-trash"></i> Usunięte</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="hpanel">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-1">
+                        <div class="panel-heading hbuilt">
+                        </div>
+                            @Html.Partial("Partial/_MessagesPartial", Model.Received.OrderByDescending(x => x.CreateDate))
+                        <div class="panel-footer">
+                            <i class="fa fa-eye"> </i> Nieprzeczytane: @Model.Received.Count(x => !x.IsRead)
+                        </div>
+                    </div>
+
+                    <div class="hpanel tab-pane" id="tab-2">
+                        <div class="panel-heading hbuilt">
+                        </div>
+                        @Html.Partial("Partial/_MessagesPartial", Model.Sent.OrderByDescending(x => x.CreateDate))
+                        <div class="panel-footer">
+                            <i class="fa fa-eye"> </i> Nieprzeczytane: @Model.Sent.Count(x => !x.IsRead)
+                        </div>
+                    </div>
+
+                    <div class="hpanel tab-pane" id="tab-3">
+                        <div class="panel-heading hbuilt">
+                        </div>
+                        @Html.Partial("Partial/_MessagesPartial", Model.Deleted.OrderByDescending(x => x.CreateDate))
+                        <div class="panel-footer">
+                            <i class="fa fa-eye"> </i> Nieprzeczytane: @Model.Deleted.Count(x => !x.IsRead)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Wyślij wiadomość</h4>
+                <small class="font-bold">Wyślij wiadomość do użytkownika.</small>
+            </div>
+            @using (Html.BeginForm("SendMessage", "Management", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Użytkownik</label>
+                                @Html.DropDownList("UserId", (IEnumerable<SelectListItem>)ViewBag.Users, "Wybierz użytkownika...", new { @class = "form-control form-control-sm", @required="required" })
+                            </div>
+                            <div class="form-group">
+                                <label>Wiadomość</label>
+                                <textarea id="Message" name="Message" class="form-control" required="required"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-envelope margin-right-xs"></i>Wyślij</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netblaster.Hermes", "Netblaster.Hermes\Netblaster.Hermes.csproj", "{742E4500-EE75-485B-AE7B-45097E44193E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netblaster.Hermes.WebUI", "Netblaster.Hermes\Netblaster.Hermes.WebUI.csproj", "{742E4500-EE75-485B-AE7B-45097E44193E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netblaster.Hermes.Tests", "Netblaster.Hermes.Tests\Netblaster.Hermes.Tests.csproj", "{CCFC96A3-AB41-4CB6-8A24-BDBA854F633B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netblaster.Hermes.DAL", "Netblaster.Hermes.DAL\Netblaster.Hermes.DAL.csproj", "{B2406F44-5926-43F7-95F4-F2D862529790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netblaster.Hermes.BLL", "Netblaster.Hermes.BLL\Netblaster.Hermes.BLL.csproj", "{DCDAD143-D757-4710-8772-B5A796D6FD10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{742E4500-EE75-485B-AE7B-45097E44193E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{742E4500-EE75-485B-AE7B-45097E44193E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{742E4500-EE75-485B-AE7B-45097E44193E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCFC96A3-AB41-4CB6-8A24-BDBA854F633B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCFC96A3-AB41-4CB6-8A24-BDBA854F633B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCFC96A3-AB41-4CB6-8A24-BDBA854F633B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCFC96A3-AB41-4CB6-8A24-BDBA854F633B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2406F44-5926-43F7-95F4-F2D862529790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2406F44-5926-43F7-95F4-F2D862529790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2406F44-5926-43F7-95F4-F2D862529790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2406F44-5926-43F7-95F4-F2D862529790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDAD143-D757-4710-8772-B5A796D6FD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDAD143-D757-4710-8772-B5A796D6FD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDAD143-D757-4710-8772-B5A796D6FD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDAD143-D757-4710-8772-B5A796D6FD10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

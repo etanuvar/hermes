@@ -1,0 +1,148 @@
+﻿@model Netblaster.Hermes.BLL.DTOs.ClientListDto
+
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <a href="/Other/Index" class="btn btn-sm btn-primary margin-right-xs">
+                        <i class="fa fa-arrow-left margin-right-xs"></i>Lista kontrahentów
+                    </a>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                @Model.Knt_Nazwa1
+            </h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="stats-title pull-left">
+                                <h4>Szczegóły kontrahenta</h4>
+                            </div>
+                            <div class="stats-icon text-right">
+                                <i class="fa fa-user fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="row margin-top-sm">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Nazwa1)
+                                @Html.EditorFor(model => model.Knt_Nazwa1, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Nazwa2)
+                                @Html.EditorFor(model => model.Knt_Nazwa2, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Kod)
+                                @Html.EditorFor(model => model.Knt_Kod, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Ulica)
+                                @Html.EditorFor(model => model.Knt_Ulica, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_KodPocztowy)
+                                @Html.EditorFor(model => model.Knt_Nazwa2, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Gmina)
+                                @Html.EditorFor(model => model.Knt_Nazwa2, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Nip)
+                                @Html.EditorFor(model => model.Knt_Nip, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Regon)
+                                @Html.EditorFor(model => model.Knt_Regon, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Fax)
+                                @Html.EditorFor(model => model.Knt_Fax, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Email)
+                                @Html.EditorFor(model => model.Knt_Email, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Telefon1)
+                                @Html.EditorFor(model => model.Knt_Telefon1, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Telefon2)
+                                @Html.EditorFor(model => model.Knt_Telefon2, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Grupa)
+                                @Html.EditorFor(model => model.Knt_Grupa, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Wojewodztwo)
+                                @Html.EditorFor(model => model.Knt_Wojewodztwo, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Knt_Kraj)
+                                @Html.EditorFor(model => model.Knt_Kraj, new { htmlAttributes = new { @class = "form-control", @disabled="disabled"} })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

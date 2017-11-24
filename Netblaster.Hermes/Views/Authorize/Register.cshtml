@@ -1,0 +1,71 @@
+﻿@model Netblaster.Hermes.WebUI.Models.Authorize.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "Register";
+}
+
+<div class="register-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center m-b-md">
+                <h3>Rejestracja</h3>
+                <small>Zarejestruj nowe konto pracownika. </small>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Register", "Authorize", FormMethod.Post, new { enctype = "multipart/form-data"}))
+                    {
+                        @Html.ValidationSummary(true)
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.CreateDate)
+                        @Html.HiddenFor(model => model.LastLoginDate)
+                        <div class="form-group col-lg-6">
+                            @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                            @*<span class="help-block small">Your unique username to app</span>*@
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LastName)
+                            @*<span class="help-block small">Your unique username to app</span>*@
+                        </div>
+                        <div class="form-group col-lg-12">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Email)
+                            @*<span class="help-block small">Your unique username to app</span>*@
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                            @Html.PasswordFor(model => model.Password, new { @placeholder = "******", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @placeholder = "******", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </div>
+                        <div class="form-group col-lg-12">
+                            @Html.LabelFor(model => model.Photo, new { @class = "control-label" })
+                            <input type="file" name="Photo" id="fileUpload" accept=".png, .jpg"/>
+                            @Html.ValidationMessageFor(model => model.Photo)
+                            @*<span class="help-block small">Your unique username to app</span>*@
+                        </div>
+                        <div class="form-group col-lg-12 text-center">
+                            <button type="submit" class="btn btn-success">Zarejestruj</button>
+                            <a class="btn btn-default" href="/Authorize/Login">Anuluj</a>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <strong>Hermes CRM</strong><br />2017 Copyright Paweł Naworski
+        </div>
+    </div>
+</div>

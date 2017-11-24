@@ -1,0 +1,239 @@
+﻿@using System.Web.UI.WebControls
+@using Netblaster.Hermes.WebUI.Helpers
+@using Netblaster.Hermes.WebUI.Models.Client
+@model Netblaster.Hermes.WebUI.Models.Task.AddTaskViewModel
+
+<div class="content">
+    @using (Html.BeginForm("Add", "Task", FormMethod.Post))
+    {
+    <div class="row">
+        <div class="col-xs-8">
+
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="stats-title pull-left">
+                                    <h4>Dodawanie nowego zadania</h4>
+                                </div>
+                                <div class="stats-icon text-right">
+                                    <i class="fa fa-calendar-check-o fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-top-sm">
+                                @Html.ValidationSummary()
+                        </div>
+                        @Html.HiddenFor(x => x.UniqueId)
+                        @Html.HiddenFor(x => x.CreatedById)
+                        <div class="row margin-top-sm">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Zgłaszający</label>
+                                    <input class="form-control form-control-sm" disabled="disabled" value="@(Model.CreatedBy.FirstName + " " + @Model.CreatedBy.LastName)"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CreateDate)
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control form-control-sm datetime" } })
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-calendar-check-o"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => Model.CreateDate)
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DeadlineDate)
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.DeadlineDate, new { htmlAttributes = new { @class = "form-control form-control-sm datetime" } })
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-calendar-check-o"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => Model.DeadlineDate)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CreateTime)
+                                    <div class="input-group clockpicker" data-autoclose="true">
+                                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => Model.CreateTime)
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EndTime)
+                                    <div class="input-group clockpicker" data-autoclose="true">
+                                        @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => Model.EndTime)
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SelectedGroupId)
+                                    @Html.DropDownListFor(model => Model.SelectedGroupId, Model.Groups, "Wybierz grupę...", new {@class = "form-control form-control-sm"})
+                                    @Html.ValidationMessageFor(model => Model.SelectedGroupId)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @*<div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <select id="SelectedGroups"  name="SelectedGroups" multiple="multiple">
+                                        @foreach (var user in Model.Groups)
+                                        {
+                                            <option class="form-control" value="@user.Value">@user.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>*@
+                    
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Title)
+                                    @Html.TextBoxFor(model => Model.Title, new {@class = "form-control form-control-sm"})
+                                    @Html.ValidationMessageFor(model => Model.Title)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Note)
+                                    @Html.TextAreaFor(model => Model.Note, new {@class = "form-control form-control-sm"})
+                                    @Html.ValidationMessageFor(model => Model.Note)
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5><i class="fa fa-tasks margin-right-xs"></i>Elementy zadania</h5>
+                                <button type="button" class="btn btn-sm btn-success margin-right-xs pull-right" id="addSubItem">
+                                    <i class="fa fa-plus margin-right-xs"></i>Dodaj element
+                                </button>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <div id="taskSubItems"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                @Html.CancelButton("/Task/Index", "Anuluj")
+                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-plus-circle margin-right-xs"></i>Dodaj zadanie</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+            
+        </div>
+        <div class="col-xs-4">
+            <div class="hpanel">
+                <div id="attachmentField" class="panel-body">
+                    <div class="stats-title pull-left">
+                        <h4><i class="fa fa-paperclip margin-right-xs"></i>Załączniki</h4>
+                        <br/>
+                        <div id="attachmentList">Przeciągnij i upuść pliki w to miejsce.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#SelectedUsers').multiselect();
+
+            $('#btnAddField').click(function(e) {
+                e.preventDefault();
+                
+            });
+        });
+
+        $(document).on("click",
+            "#addSubItem",
+            function () {
+                var $fields = $('#taskSubItems');
+                var count = $("#taskSubItems textarea").length;
+                $('<div style="white-space:nowrap"><label for="taskItem-' + (count + 1) + '">' + (count + 1) + '. </label><textarea id="taskItem-' + (count + 1) + '" class="form-control form-control-sm" name="subItemElement" /></div><br/>').appendTo($fields);
+            });
+
+        $('.clockpicker').clockpicker();
+        $('.datetime').datepicker({ format: "yyyy-mm-dd", language: "pl", locale: "pl" });
+
+        $('#attachmentField').filedrop({
+            url: '@Url.Action("AddAttachments", "Other")',
+            paramname: 'files',
+            maxFiles: 10,
+            maxfilesize: 10,
+            allowedfileextensions: [
+                '.jpg', '.jpeg', '.png', '.gif', '.pdf', '.docx', '.msg', '.xlsx', '.xls', '.doc', '.txt'
+            ],
+            data: {
+                uniqueId: $("#UniqueId").val()
+            },
+            dragOver: function() {
+                $('#attachmentField').css('border-style', 'dashed');
+                $('#attachmentField').css('border-width', '5px');
+                $('#attachmentField').css('border-color', 'limegreen');
+            },
+            dragLeave: function() {
+                $('#attachmentField').css('border-style', 'dashed');
+                $('#attachmentField').css('border-width', '0px');
+            },
+            drop: function() {
+                //$('#dropZone').css('background', 'gray');
+            },
+            afterAll: function() {
+                $('#attachmentField').css('border-style', 'dashed');
+                $('#attachmentField').css('border-width', '0px');
+            },
+            uploadFinished: function(i, file, response, time) {
+                $("#attachmentList").html('');
+                $.each(response.Files,
+                    function (index) {
+                        $("#attachmentList").append('<p>Plik: <b>' + response.Files[index] + '</b></p>');
+                    });
+            }
+
+        });
+    </script>
+}
