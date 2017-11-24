@@ -12,7 +12,6 @@ namespace Netblaster.Hermes.WebUI.Models.Contact
     {
         public ContactListViewModel()
         {
-            FilterBox = new ContactFilterDto();
         }
     }
 }

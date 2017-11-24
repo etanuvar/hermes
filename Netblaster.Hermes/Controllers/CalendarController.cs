@@ -37,30 +37,32 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
         public ActionResult GetCalendarItems(int? id = null)
         {
+            var items = new List<CalendarItemDto>();
             ViewBag.AvailableGroups = GetGroups();
 
-            var baseQuery = _hermesDataContext.TaskItems.AsQueryable();
-            if (id.HasValue)
+            if (CurrentUser.UserGroups.Any(x => x.Group.IsActive))
             {
-                baseQuery = baseQuery.Where(x => x.GroupId == id.Value);
-            }
+                var baseQuery = id.HasValue ? 
+                    _hermesDataContext.TaskItems.Where(x => x.GroupId == id.Value) :
+                    _hermesDataContext.TaskItems.Where(x => x.GroupId == CurrentUser.UserGroups.First().GroupId).AsQueryable();
 
-            var items = baseQuery.ToList().Select(x => new CalendarItemDto()
-            {
-                ID = x.Id,
-                allDay = false,
-                start = x.CreateDate,
-                startDisplay = x.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                end = x.DeadlineDate,
-                backgroundColor = x.ItemStatus == TaskItemStatus.Rejected ? "#ea6557" : x.ItemStatus == TaskItemStatus.InProgress ? "#FF6200" : x.ItemStatus == TaskItemStatus.Done ? "#74d348" : "#ccc",
-                borderColor = x.ItemStatus == TaskItemStatus.Rejected ? "#ea6557" : x.ItemStatus == TaskItemStatus.InProgress ? "#FF6200" : x.ItemStatus == TaskItemStatus.Done ? "#74d348" : "#ccc",
-                title = x.Title,
-                customCalendarItemId = x.Id,
-                customAssignedToDisplay = x.Group.Name,
-                customCreatedByDisplay = x.CreatedBy.FirstName + " " + x.CreatedBy.LastName,
-                taskDisplay = x.DisplayId,
-                statusDisplay = x.ItemStatus.GetDisplayName(),
-            });
+                items = baseQuery.ToList().Select(x => new CalendarItemDto()
+                {
+                    ID = x.Id,
+                    allDay = false,
+                    start = x.CreateDate,
+                    startDisplay = x.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                    end = x.DeadlineDate,
+                    backgroundColor = x.ItemStatus == TaskItemStatus.Rejected ? "#ea6557" : x.ItemStatus == TaskItemStatus.InProgress ? "#FF6200" : x.ItemStatus == TaskItemStatus.Done ? "#74d348" : "#ccc",
+                    borderColor = x.ItemStatus == TaskItemStatus.Rejected ? "#ea6557" : x.ItemStatus == TaskItemStatus.InProgress ? "#FF6200" : x.ItemStatus == TaskItemStatus.Done ? "#74d348" : "#ccc",
+                    title = x.Title,
+                    customCalendarItemId = x.Id,
+                    customAssignedToDisplay = x.Group.Name,
+                    customCreatedByDisplay = x.CreatedBy.FirstName + " " + x.CreatedBy.LastName,
+                    taskDisplay = x.DisplayId,
+                    statusDisplay = x.ItemStatus.GetDisplayName(),
+                }).ToList();
+            }
 
             return Json(items, JsonRequestBehavior.AllowGet);
         }

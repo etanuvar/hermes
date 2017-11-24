@@ -48,9 +48,15 @@ namespace Netblaster.Hermes.BLL.DataFormat
                 {
                     query = query.Where(x => x.Note.ToLower().Contains(FilterBox.Note.ToLower()));
                 }
+                if (!string.IsNullOrEmpty(FilterBox.CreatedById))
+                {
+                    query = query.Where(x => !string.IsNullOrEmpty(x.ApplicationUserId) && x.ApplicationUserId == FilterBox.CreatedById);
+                }
                 if (FilterBox.CreateDate.HasValue)
                 {
-                    query = query.Where(x => x.CreateDate == FilterBox.CreateDate.Value);
+                    query = query.Where(x => x.CreateDate.Day == FilterBox.CreateDate.Value.Day
+                                             && x.CreateDate.Month == FilterBox.CreateDate.Value.Month
+                                             && x.CreateDate.Year == FilterBox.CreateDate.Value.Year);
                 }
                 if (!string.IsNullOrEmpty(FilterBox.SelectedContactType))
                 {

@@ -32,11 +32,13 @@ namespace Netblaster.Hermes.WebUI.Controllers
         private readonly int _defaultPageSize = 25;
         private readonly Entities _optimaDbContext;
         private readonly HermesDataContext _hermesDataContext;
+        private List<SelectListItem> _users;
 
         public ContactController()
         {
             _optimaDbContext = new Entities();
             _hermesDataContext = new HermesDataContext();
+            _users = new List<SelectListItem>();
         }
 
         public ActionResult Index()
@@ -67,9 +69,19 @@ namespace Netblaster.Hermes.WebUI.Controllers
             SetHeaders("Kontakty", "Lista wszystkich kontaktów", "Index", "Contact");
             SetViewParams("CreateDate", _defaultPage, _defaultPageSize);
             var listData = contactListDto.ToPagedList(_defaultPage, _defaultPageSize);
+
+            var contactTypes = _hermesDataContext.Parameters.SingleOrDefault(x => x.Name == "ContactType");
+            var splittedTypes = contactTypes.Value.Split(',');
+            var typesOfContacts = splittedTypes.Select(x => new SelectListItem
+            {
+                Text = x,
+                Value = x
+            }).ToList();
+
             var viewModel = new ContactListViewModel()
             {
                 ListData = listData,
+                FilterBox = new ContactFilterDto(GetUses(), typesOfContacts)
             };
 
             return View(viewModel);
@@ -208,7 +220,7 @@ namespace Netblaster.Hermes.WebUI.Controllers
                         var newTask = new TaskItem()
                         {
                             ItemStatus = TaskItemStatus.InProgress,
-                            GroupId = CurrentUser.UserGroups.First().GroupId,
+                            GroupId = CurrentUser.UserGroups.FirstOrDefault(x => x.Group.IsActive)?.GroupId,
                             CreateDate = domainModel.CreateDate,
                             Title = $"Przypomnienie odnośnie kontaktu z {client.Knt_Nazwa1}",
                             Note = domainModel.Note,
@@ -351,6 +363,19 @@ namespace Netblaster.Hermes.WebUI.Controllers
             ViewBag.SortParam = sortOrder;
             ViewBag.Page = page;
             ViewBag.PageSize = pageSize;
+        }
+
+        internal List<SelectListItem> GetUses()
+        {
+            if (_users.Count == 0)
+            {
+                _users = _hermesDataContext.Users.Select(x => new SelectListItem
+                {
+                    Text = x.FirstName + " " + x.LastName,
+                    Value = x.Id.ToString()
+                }).ToList();
+            }
+            return _users;
         }
     }
 }
