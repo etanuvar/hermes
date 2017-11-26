@@ -240,7 +240,7 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
                 var templateFile = Server.MapPath(Url.Content("~/Content/template.txt"));
                 var msg = EmailHelper.GenerateNewTaskMessage($"http://{Request.Url.Authority}", templateFile, CurrentUser, domainModel);
-                EmailHelper.SendEmail(msg, selectedGroup);
+                EmailHelper.SendEmailToGroup(msg, selectedGroup);
 
                 return RedirectToAction("Index");
             }

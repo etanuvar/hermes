@@ -21,6 +21,7 @@ using Netblaster.Hermes.BLL.Manager;
 using Netblaster.Hermes.DAL;
 using Netblaster.Hermes.DAL.Model.Enums;
 using Netblaster.Hermes.DAL.Optima;
+using Netblaster.Hermes.WebUI.Helpers;
 using Netblaster.Hermes.WebUI.Models.Authorize;
 
 namespace Netblaster.Hermes.WebUI.Controllers
@@ -80,15 +81,22 @@ namespace Netblaster.Hermes.WebUI.Controllers
                         user.Photo = Convert.FromBase64String(ConfigurationManager.AppSettings["DefaultUserPhoto"]);
                     }
                 }
+                user.EmailConfirmed = false;
+
+                var templateFile = Server.MapPath(Url.Content("~/Content/template.txt"));
+                var msg = EmailHelper.GenerateNewUserMessage($"http://{Request.Url.Authority}", templateFile, CurrentUser, user);
+                var users = _hermesDataContext.Users.Where(x => x.Claims.Any(y => y.ClaimValue == "Administrator"));
+                EmailHelper.SendEmailToUsers(msg, users);
+
 
                 user.Claims.Add(new IdentityUserClaim {ClaimType = "Role", ClaimValue = UserRoleEnum.StandardUser.ToString(), UserId = user.Id});
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    return RedirectToAction("Dashboard", "Home");
+                    return RedirectToAction("Login", "Authorize");
                 }
                 AddErrors(result);
             }
@@ -123,6 +131,11 @@ namespace Netblaster.Hermes.WebUI.Controllers
             }
             else
             {
+                if (user.EmailConfirmed == false)
+                {
+                    ModelState.AddModelError("", "Twoje konto nie jest obecnie aktywne. Skontaktuj się z administratorem w celu aktywowania konta.");
+                    return View(model);
+                }
                 var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {

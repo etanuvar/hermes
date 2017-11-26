@@ -78,73 +78,9 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="HermesDataContext.cs" />
     <Compile Include="Interface\IHermesDataContext.cs" />
-    <Compile Include="Migrations\201710102134056_Initial.cs" />
-    <Compile Include="Migrations\201710102134056_Initial.Designer.cs">
-      <DependentUpon>201710102134056_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710122024196_AddColumnContactType.cs" />
-    <Compile Include="Migrations\201710122024196_AddColumnContactType.Designer.cs">
-      <DependentUpon>201710122024196_AddColumnContactType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710131230523_AddedTaskItemStatus.cs" />
-    <Compile Include="Migrations\201710131230523_AddedTaskItemStatus.Designer.cs">
-      <DependentUpon>201710131230523_AddedTaskItemStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021847353_AdditionalTables.cs" />
-    <Compile Include="Migrations\201711021847353_AdditionalTables.Designer.cs">
-      <DependentUpon>201711021847353_AdditionalTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711022016123_TaskItemUsersAdded.cs" />
-    <Compile Include="Migrations\201711022016123_TaskItemUsersAdded.Designer.cs">
-      <DependentUpon>201711022016123_TaskItemUsersAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051254454_AddAttachmentTable.cs" />
-    <Compile Include="Migrations\201711051254454_AddAttachmentTable.Designer.cs">
-      <DependentUpon>201711051254454_AddAttachmentTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051919237_DeadlineDate.cs" />
-    <Compile Include="Migrations\201711051919237_DeadlineDate.Designer.cs">
-      <DependentUpon>201711051919237_DeadlineDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711070928088_AddUserGroupsAndSubTasks.cs" />
-    <Compile Include="Migrations\201711070928088_AddUserGroupsAndSubTasks.Designer.cs">
-      <DependentUpon>201711070928088_AddUserGroupsAndSubTasks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711071136277_MissingRef.cs" />
-    <Compile Include="Migrations\201711071136277_MissingRef.Designer.cs">
-      <DependentUpon>201711071136277_MissingRef.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711071149290_FixRefferences.cs" />
-    <Compile Include="Migrations\201711071149290_FixRefferences.Designer.cs">
-      <DependentUpon>201711071149290_FixRefferences.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711131716045_Groups.cs" />
-    <Compile Include="Migrations\201711131716045_Groups.Designer.cs">
-      <DependentUpon>201711131716045_Groups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711131821217_GroupsTableRefFix.cs" />
-    <Compile Include="Migrations\201711131821217_GroupsTableRefFix.Designer.cs">
-      <DependentUpon>201711131821217_GroupsTableRefFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711151955396_WrongRefFIx.cs" />
-    <Compile Include="Migrations\201711151955396_WrongRefFIx.Designer.cs">
-      <DependentUpon>201711151955396_WrongRefFIx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711152014009_FixingRef2.cs" />
-    <Compile Include="Migrations\201711152014009_FixingRef2.Designer.cs">
-      <DependentUpon>201711152014009_FixingRef2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191623584_FixKey.cs" />
-    <Compile Include="Migrations\201711191623584_FixKey.Designer.cs">
-      <DependentUpon>201711191623584_FixKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191814045_FixKey2.cs" />
-    <Compile Include="Migrations\201711191814045_FixKey2.Designer.cs">
-      <DependentUpon>201711191814045_FixKey2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191821595_ReCreateUserMessages.cs" />
-    <Compile Include="Migrations\201711191821595_ReCreateUserMessages.Designer.cs">
-      <DependentUpon>201711191821595_ReCreateUserMessages.cs</DependentUpon>
+    <Compile Include="Migrations\201711242210586_InitialDatabase_v1.cs" />
+    <Compile Include="Migrations\201711242210586_InitialDatabase_v1.Designer.cs">
+      <DependentUpon>201711242210586_InitialDatabase_v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
@@ -203,59 +139,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710102134056_Initial.resx">
-      <DependentUpon>201710102134056_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710122024196_AddColumnContactType.resx">
-      <DependentUpon>201710122024196_AddColumnContactType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710131230523_AddedTaskItemStatus.resx">
-      <DependentUpon>201710131230523_AddedTaskItemStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021847353_AdditionalTables.resx">
-      <DependentUpon>201711021847353_AdditionalTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711022016123_TaskItemUsersAdded.resx">
-      <DependentUpon>201711022016123_TaskItemUsersAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051254454_AddAttachmentTable.resx">
-      <DependentUpon>201711051254454_AddAttachmentTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051919237_DeadlineDate.resx">
-      <DependentUpon>201711051919237_DeadlineDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711070928088_AddUserGroupsAndSubTasks.resx">
-      <DependentUpon>201711070928088_AddUserGroupsAndSubTasks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711071136277_MissingRef.resx">
-      <DependentUpon>201711071136277_MissingRef.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711071149290_FixRefferences.resx">
-      <DependentUpon>201711071149290_FixRefferences.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711131716045_Groups.resx">
-      <DependentUpon>201711131716045_Groups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711131821217_GroupsTableRefFix.resx">
-      <DependentUpon>201711131821217_GroupsTableRefFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711151955396_WrongRefFIx.resx">
-      <DependentUpon>201711151955396_WrongRefFIx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711152014009_FixingRef2.resx">
-      <DependentUpon>201711152014009_FixingRef2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191623584_FixKey.resx">
-      <DependentUpon>201711191623584_FixKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191814045_FixKey2.resx">
-      <DependentUpon>201711191814045_FixKey2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191821595_ReCreateUserMessages.resx">
-      <DependentUpon>201711191821595_ReCreateUserMessages.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Optima\OptimaDataContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OptimaDataContext.edmx</DependentUpon>
@@ -266,6 +149,11 @@
       <DependentUpon>OptimaDataContext.edmx</DependentUpon>
       <LastGenOutput>OptimaDataContext.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711242210586_InitialDatabase_v1.resx">
+      <DependentUpon>201711242210586_InitialDatabase_v1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,6 +34,11 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
         public ActionResult Dashboard()
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Authorize");
+            }
+
             var viewModel = new DashboardViewModel();
             var finishedTaskDates = string.Empty;
             var finishedTaskValues = string.Empty;

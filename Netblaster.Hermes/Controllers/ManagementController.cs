@@ -53,6 +53,7 @@ namespace Netblaster.Hermes.WebUI.Controllers
         // GET: Management
         public ActionResult Users()
         {
+            ViewBag.CurrentUser = CurrentUser;
             var usersVm = new List<UserDetailsViewModel>();
             var users = _hermesDataContext.Users.Where(x => x.LockoutEnabled == false).AsEnumerable();
 
@@ -155,6 +156,18 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
             return Json(operationResult, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public ActionResult ActivateUser(string id)
+        {
+            var user = _hermesDataContext.Users.Find(id);
+            if (user != null)
+            {
+                user.EmailConfirmed = true;
+                _hermesDataContext.SaveChanges();
+            }
+
+            return RedirectToAction("Users");
         }
 
         public ActionResult AddGroup(string NewGroupName)

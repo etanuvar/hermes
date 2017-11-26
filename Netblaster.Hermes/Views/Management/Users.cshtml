@@ -1,6 +1,8 @@
 ﻿@using Netblaster.Hermes.DAL.Model
 @model List<Netblaster.Hermes.WebUI.Models.Management.UserDetailsViewModel>
-
+@{
+    var currentUser = (ApplicationUser) ViewBag.CurrentUser;
+}
 <div class="normalheader ">
     <div class="hpanel">
         <div class="panel-body">
@@ -36,15 +38,21 @@
         {
             <div class="col-lg-3">
             <a href="/User/Details/@user.ApplicationUser.Id">
-                <div class="hpanel hgreen contact-panel">
+                <div class="hpanel @(!user.ApplicationUser.EmailConfirmed ? "hred" : "hgreen") contact-panel">
                     <div class="panel-body">
-                        @if ((DateTime.Now - user.ApplicationUser.CreateDate).TotalDays < 7)
+                        @if ((DateTime.Now - user.ApplicationUser.CreateDate).TotalDays < 7 && user.ApplicationUser.EmailConfirmed)
                         {
                             <span class="label label-success pull-right">NOWY</span>  
                         }
+                        @if (currentUser.HasClaim("Administrator") && !user.ApplicationUser.EmailConfirmed)
+                        {
+                            <a href="/Management/ActivateUser/@user.ApplicationUser.Id" class="btn btn-xs btn-success margin-right-xs pull-right">
+                                <i class="fa fa-check margin-right-xs"></i>Aktywuj użytkownika
+                            </a>
+                        }
 
                         <img src="@user.ApplicationUser.PhotoImage" class="img-circle m-b" alt="logo" style="width: 75px; height: 75px;">
-                        <h3>@user.ApplicationUser.DisplayName</h3>
+                        <h3>@user.ApplicationUser.DisplayName @(!user.ApplicationUser.EmailConfirmed ? Html.Raw("<small>(nieaktywny)</small>"): Html.Raw("")) </h3>
                         <div class="text-muted font-bold m-b-xs">@user.ApplicationUser.JobTitle</div>
                         <p>E-mail: <b>@user.ApplicationUser.Email</b></p>
                         <p>Numer telefonu: @user.ApplicationUser.PhoneNumber</p>
