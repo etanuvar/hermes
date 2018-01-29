@@ -54,6 +54,13 @@ namespace Netblaster.Hermes.BLL.DataFormat
                 {
                     query = query.Where(x => x.Note.ToLower().Contains(FilterBox.Note.ToLower()));
                 }
+
+                if (!string.IsNullOrEmpty(FilterBox.ClientName))
+                {
+                    query = query.Where(x => x.Kontrahent.Knt_Nazwa1.ToLower().Contains(FilterBox.ClientName.ToLower()) 
+                    || x.Kontrahent.Knt_Kod.ToLower().Contains(FilterBox.ClientName.ToLower()));
+                }
+
                 if (!string.IsNullOrEmpty(FilterBox.Title))
                 {
                     query = query.Where(x => x.Title.ToLower().Contains(FilterBox.Title.ToLower()));

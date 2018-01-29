@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Netblaster.Hermes.DAL.Model;
 using Netblaster.Hermes.DAL.Model.Enums;
+using Netblaster.Hermes.DAL.Optima;
 
 namespace Netblaster.Hermes.BLL.DTOs
 {
@@ -48,5 +49,9 @@ namespace Netblaster.Hermes.BLL.DTOs
 
         [Display(Name = "Status")]
         public TaskItemStatus ItemStatus { get; set; }
+
+        public int KntId { get; set; }
+
+        public Kontrahenci Kontrahent { get; set; }
     }
 }

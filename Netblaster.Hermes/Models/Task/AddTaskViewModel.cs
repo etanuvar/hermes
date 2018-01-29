@@ -38,9 +38,18 @@ namespace Netblaster.Hermes.WebUI.Models.Task
 
         public List<SelectListItem> Groups { get; set; }
 
-        [Required]
-        [Display(Name = "Przydzielone do")]
+        public List<SelectListItem> Users { get; set; }
+
+        [Display(Name = "Kontrahent")]
+        public int? KntId { get; set; }
+
+        public string ClientDisplay { get; set; }
+
+        [Display(Name = "Przydzielone do grupy")]
         public int? SelectedGroupId { get; set; }
+
+        [Display(Name = "Przydzielone do użytkownika")]
+        public string SelectedUserId { get; set; }
 
         [Required]
         [Display(Name = "Termin graniczny")]
@@ -72,6 +81,11 @@ namespace Netblaster.Hermes.WebUI.Models.Task
             if (timespan < 0)
             {
                 results.Add(new ValidationResult("Data planowanego zakończenia zadania musi być większa od daty utworzenia", new List<string>() { "EndDate" }));
+            }
+
+            if (string.IsNullOrEmpty(SelectedUserId) && SelectedGroupId == null)
+            {
+                results.Add(new ValidationResult("Musisz przydzielić zadanie do grupy albo do użytkownika", new List<string>() { "SelectedUserId", "SelectedGroupId" }));
             }
 
             return results;

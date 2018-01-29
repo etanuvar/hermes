@@ -82,6 +82,18 @@
     <Compile Include="Migrations\201711242210586_InitialDatabase_v1.Designer.cs">
       <DependentUpon>201711242210586_InitialDatabase_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801280916249_NewFields.cs" />
+    <Compile Include="Migrations\201801280916249_NewFields.Designer.cs">
+      <DependentUpon>201801280916249_NewFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801281036530_NewFields2.cs" />
+    <Compile Include="Migrations\201801281036530_NewFields2.Designer.cs">
+      <DependentUpon>201801281036530_NewFields2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801292117187_MissingColums.cs" />
+    <Compile Include="Migrations\201801292117187_MissingColums.Designer.cs">
+      <DependentUpon>201801292117187_MissingColums.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
     <Compile Include="Model\Attachment.cs" />
@@ -153,6 +165,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711242210586_InitialDatabase_v1.resx">
       <DependentUpon>201711242210586_InitialDatabase_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801280916249_NewFields.resx">
+      <DependentUpon>201801280916249_NewFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801281036530_NewFields2.resx">
+      <DependentUpon>201801281036530_NewFields2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801292117187_MissingColums.resx">
+      <DependentUpon>201801292117187_MissingColums.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

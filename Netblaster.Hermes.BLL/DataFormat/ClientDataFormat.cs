@@ -36,6 +36,10 @@ namespace Netblaster.Hermes.BLL.DataFormat
                 {
                     query = query.Where(x => x.Knt_Email != null && x.Knt_Email.ToLower().StartsWith(FilterBox.Knt_Email.ToLower()));
                 }
+                if (!string.IsNullOrEmpty(FilterBox.Knt_Kod))
+                {
+                    query = query.Where(x => x.Knt_Kod != null && x.Knt_Kod.ToLower().StartsWith(FilterBox.Knt_Kod.ToLower()));
+                }
                 if (!string.IsNullOrEmpty(FilterBox.Knt_KodPocztowy))
                 {
                     query = query.Where(x => x.Knt_KodPocztowy != null && x.Knt_KodPocztowy.StartsWith(FilterBox.Knt_KodPocztowy));
@@ -87,6 +91,12 @@ namespace Netblaster.Hermes.BLL.DataFormat
                     break;
                 case "Knt_Powiat_desc":
                     query = query.OrderByDescending(s => s.Knt_Powiat);
+                    break;
+                case "Knt_Kod":
+                    query = query.OrderBy(s => s.Knt_Kod);
+                    break;
+                case "Knt_Kod_desc":
+                    query = query.OrderByDescending(s => s.Knt_Kod);
                     break;
                 case "Knt_Telefon1":
                     query = query.OrderBy(s => s.Knt_Telefon1);

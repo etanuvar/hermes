@@ -37,6 +37,10 @@
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="Knt_Nazwa1" data-previous-sort="@currentSort">Nazwa firmy</a>
                                     @Html.SortIdentifier(currentSort, "Knt_Nazwa1")
                                 </th>
+                                <th class="col-md-2">
+                                    <a href="javascript:void(0)" class="sort-link" data-sort-param="Knt_Kod" data-previous-sort="@currentSort">Akronim</a>
+                                    @Html.SortIdentifier(currentSort, "Knt_Kod")
+                                </th>
                                 <th class="col-md-1">
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="Knt_Nip" data-previous-sort="@currentSort">NIP</a>
                                     @Html.SortIdentifier(currentSort, "Knt_Nip")
@@ -53,11 +57,11 @@
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="Knt_KodPocztowy" data-previous-sort="@currentSort">Kod pocztowy</a>
                                     @Html.SortIdentifier(currentSort, "Knt_KodPocztowy")
                                 </th>
-                                <th class="col-md-2">
+                                <th class="col-md-1">
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="Knt_Telefon1" data-previous-sort="@currentSort">Telefon</a>
                                     @Html.SortIdentifier(currentSort, "Knt_Telefon1")
                                 </th>
-                                <th class="col-md-2">
+                                <th class="col-md-1">
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="Knt_Email" data-previous-sort="@currentSort">E-mail</a>
                                     @Html.SortIdentifier(currentSort, "Knt_Email")
                                 </th>
@@ -66,12 +70,13 @@
                             {
                                 <tr class="audit-row" element-id="@item.Knt_KntId" style="cursor: pointer">
                                     <td class="col-md-2">@item.Knt_Nazwa1</td>
+                                    <td class="col-md-2">@item.Knt_Kod</td>
                                     <td class="col-md-1">@item.Knt_Nip</td>
                                     <td class="col-md-2">@item.Knt_Miasto</td>
                                     <td class="col-md-2">@item.Knt_Ulica</td>
                                     <td class="col-md-1">@item.Knt_KodPocztowy</td>
-                                    <td class="col-md-2">@item.Knt_Telefon1</td>
-                                    <td class="col-md-3">@item.Knt_Email</td>
+                                    <td class="col-md-1">@item.Knt_Telefon1</td>
+                                    <td class="col-md-1">@item.Knt_Email</td>
                                 </tr>
                             }
                         </table>

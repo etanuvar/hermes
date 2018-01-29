@@ -32,9 +32,18 @@ namespace Netblaster.Hermes.DAL.Model
 
         public virtual ICollection<Attachment> Attachments { get; set; }
 
+        public int? KntId { get; set; }
+
         public int? GroupId { get; set; }
 
         public virtual Group Group { get; set; }
+
+        public string SelectedUserId { get; set; }
+
+        public string FinishedByDisplay { get; set; }
+
+        [ForeignKey("SelectedUserId")]
+        public virtual ApplicationUser SelectedUser { get; set; }
 
         public TaskItemStatus ItemStatus { get; set; }
 

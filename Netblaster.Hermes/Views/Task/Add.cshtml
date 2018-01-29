@@ -98,20 +98,31 @@
                                     @Html.ValidationMessageFor(model => Model.SelectedGroupId)
                                 </div>
                             </div>
-                        </div>
                         
-                        @*<div class="row">
+                        
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <select id="SelectedGroups"  name="SelectedGroups" multiple="multiple">
-                                        @foreach (var user in Model.Groups)
-                                        {
-                                            <option class="form-control" value="@user.Value">@user.Text</option>
-                                        }
-                                    </select>
+                                    @Html.LabelFor(model => model.SelectedUserId)
+                                    @Html.DropDownListFor(model => Model.SelectedUserId, Model.Users, "Lub wybierz użytkownika...", new { @class = "form-control form-control-sm" })
+                                    @Html.ValidationMessageFor(model => Model.SelectedUserId)
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.KntId)
+                                    @Html.HiddenFor(model => model.KntId)
+                                    <div class="input-group">
+                                        <input id="ClientDisplay" name="ClientDisplay" class="form-control form-control-sm" value="@Model.ClientDisplay" />
+                                        <span class="input-group-addon">
+                                            <a id="search-click"><span class="fa fa-search"></span></a>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => Model.KntId)
+                                </div>
+                            </div>
+                        </div>
                     
                         <div class="row">
                             <div class="col-xs-12">
@@ -132,8 +143,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-
 
                         <div class="row">
                             <div class="col-xs-12">
@@ -141,7 +150,6 @@
                                 <button type="button" class="btn btn-sm btn-success margin-right-xs pull-right" id="addSubItem">
                                     <i class="fa fa-plus margin-right-xs"></i>Dodaj element
                                 </button>
-                                
                             </div>
                         </div>
                         <div class="row">
@@ -173,6 +181,8 @@
                 </div>
             </div>
         </div>
+        <div id="modal-results">
+        </div>
     </div>
 }
 </div>
@@ -189,11 +199,47 @@
         });
 
         $(document).on("click",
+            "#search-click",
+            function() {
+                var searchTerm = $("#ClientDisplay").val();
+
+                var request = $.ajax({
+                    url: "/Contact/GetClients?searchTerm=" + searchTerm,
+                    method: "GET",
+                });
+
+                request.done(function(result) {
+                    $("#modal-results").html(result);
+                    $(".search-modal").show();
+                });
+
+            });
+
+        $(document).on("click",
+            ".select-search-result",
+            function() {
+                var displayName = $(this).attr("element-display");
+                var elementId = $(this).attr("element-id");
+
+                $("#KntId").val(elementId);
+                $("#ClientDisplay").val(displayName);
+                $(".search-modal").hide();
+            });
+
+        $(document).on("click",
+            ".modal-close",
+            function() {
+
+                $(".search-modal").hide();
+
+            });
+
+        $(document).on("click",
             "#addSubItem",
             function () {
                 var $fields = $('#taskSubItems');
                 var count = $("#taskSubItems textarea").length;
-                $('<div style="white-space:nowrap"><label for="taskItem-' + (count + 1) + '">' + (count + 1) + '. </label><textarea id="taskItem-' + (count + 1) + '" class="form-control form-control-sm" name="subItemElement" /></div><br/>').appendTo($fields);
+                $('<div style="display:inline"><span>' + (count + 1) + '. </span><textarea id="taskItem-' + (count + 1) + '" class="form-control form-control-sm" name="subItemElement" /></div><br/>').appendTo($fields);
             });
 
         $('.clockpicker').clockpicker();

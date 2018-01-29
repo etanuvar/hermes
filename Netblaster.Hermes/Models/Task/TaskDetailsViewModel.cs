@@ -16,6 +16,9 @@ namespace Netblaster.Hermes.WebUI.Models.Task
 
         public DateTime CreateDate { get; set; }
 
+
+        public string FinishedByDisplay { get; set; }
+
         public string Note { get; set; }
 
         public string ApplicationUserId { get; set; }

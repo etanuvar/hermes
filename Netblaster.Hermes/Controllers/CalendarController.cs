@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Netblaster.Hermes.BLL.DTOs;
 using Netblaster.Hermes.DAL;
 using Netblaster.Hermes.DAL.Extensions;
+using Netblaster.Hermes.DAL.Model;
 using Netblaster.Hermes.DAL.Model.Enums;
 using Netblaster.Hermes.DAL.Optima;
 using Netblaster.Hermes.WebUI.Controllers.Base;
@@ -42,9 +43,13 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
             if (CurrentUser.UserGroups.Any(x => x.Group.IsActive))
             {
-                var baseQuery = id.HasValue ? 
-                    _hermesDataContext.TaskItems.Where(x => x.GroupId == id.Value) :
-                    _hermesDataContext.TaskItems.Where(x => x.GroupId == CurrentUser.UserGroups.First().GroupId).AsQueryable();
+                var firstAlphabeticalGroup = CurrentUser.UserGroups.FirstOrDefault()?.GroupId;
+
+                var baseQuery = id.HasValue
+                    ? _hermesDataContext.TaskItems.Where(x => x.GroupId == id.Value).ToList()
+                    : firstAlphabeticalGroup.HasValue
+                        ? _hermesDataContext.TaskItems.Where(x => x.GroupId == firstAlphabeticalGroup.Value).ToList()
+                        : new List<TaskItem>();
 
                 items = baseQuery.ToList().Select(x => new CalendarItemDto()
                 {

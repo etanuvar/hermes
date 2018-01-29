@@ -20,6 +20,11 @@
                     <a href="/Task/Index" class="btn btn-sm btn-default margin-right-xs">
                         <i class="fa fa-arrow-left margin-right-xs"></i>Lista zadań
                     </a>
+                    <button type="button" class="btn btn-sm btn-primary2 margin-right-xs"
+                            data-toggle="modal" data-target="#addAttachmentModal">
+                        <i class="fa fa-edit margin-right-xs"></i>Dodaj załącznik
+                    </button>
+
                     <button type="button" class="btn btn-sm btn-primary margin-right-xs"
                             data-toggle="modal" data-target="#addCommentModal">
                         <i class="fa fa-edit margin-right-xs"></i>Dodaj komentarz
@@ -61,8 +66,8 @@
             <div class="hpanel">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-edit margin-right-xs"></i> Zadanie</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-clock-o margin-right-xs"></i> Historia</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-paperclip margin-right-xs"></i> Załączniki</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-clock-o margin-right-xs"></i> Historia (@Model.TaskDetails.Count(x => x.TaskDetailType == TaskDetailType.TaskHistory))</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-paperclip margin-right-xs"></i> Załączniki (@Model.Attachments.Count)</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane active">
@@ -90,12 +95,19 @@
                                         </a>
 
                                         <div class="media-body">
-                                            <span class="font-bold">@historyItem.ApplicationUser.DisplayName</span>
-                                            <small class="text-muted">@historyItem.CreateDate</small>
-
-                                            <div class="social-content">
-                                                @historyItem.Text
+                                            <div class="col-md-8">
+                                                <span class="font-bold">@historyItem.ApplicationUser.DisplayName</span>
+                                                <small class="text-muted">@historyItem.CreateDate</small>
+                                                <div class="social-content">
+                                                    @historyItem.Text
+                                                </div>
                                             </div>
+                                            @if (historyItem.Attachments.Any())
+                                            {
+                                                <div class="col-md-4">
+                                                    <a href="/Other/DownloadFile/@historyItem.Attachments.First().Id"><i class="fa @(historyItem.Attachments.First().MimeType.MapMimeTypeToIcon()) text-info"></i> @historyItem.Attachments.First().FileName</a>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -190,6 +202,47 @@
     </div>
 </div>
 
+<div class="modal fade" id="addAttachmentModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Dodaj załącznik</h4>
+                <small class="font-bold">Dodaj załącznik do całego zadania lub określonego pod-zadania.</small>
+            </div>
+            @using (Html.BeginForm("AddAttachment", "Task", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(x => x.Id)
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Załącznik do:</label>
+                                <select name="attachmentFor" id="attachmentFor" class="form-control">
+                                    <option id="all">Całe zadanie</option> 
+                                    @foreach (var subtask in Model.TaskSubItems)
+                                    {
+                                        <option id="@subtask.Id">@subtask.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="attachment">Załącznik</label>
+                                <input type="file" style="padding-bottom:10px" name="attachment" id="attachment" placeholder="Załącznik" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -198,7 +251,7 @@
                 <h4 class="modal-title">Dodaj komentarz</h4>
                 <small class="font-bold">Dodaj komentarz do realizowanego zadania.</small>
             </div>
-            @using (Html.BeginForm("AddComment", "Task", FormMethod.Post))
+            @using (Html.BeginForm("AddComment", "Task", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.HiddenFor(x => x.Id)
                 <div class="modal-body">
@@ -208,6 +261,10 @@
                                 @Html.LabelFor(model => model.Comment)
                                 @Html.TextAreaFor(model => Model.Comment, new {@class = "form-control form-control-sm"})
                                 @Html.ValidationMessageFor(model => Model.Comment)
+                            </div>
+                            <div class="form-group">
+                                <label for="attachment">Załącznik</label>
+                                <input type="file" style="padding-bottom:10px" name="attachment" id="attachment" placeholder="Załącznik" class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -245,6 +302,15 @@
                     });
 
             });
+
+        var uploadField = document.getElementById("attachment");
+
+        uploadField.onchange = function() {
+            if(this.files[0].size > 11007200){
+                alert("Plik jest za duży!");
+                this.value = "";
+            };
+        };
 
     </script>
 }

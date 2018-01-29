@@ -34,6 +34,7 @@ namespace Netblaster.Hermes.WebUI.Models.Contact
 
         [Required(ErrorMessage = "Wpisz notatkę z kontaktu.")]
         [Display(Name = "Opis kontaktu")]
+        [AllowHtml]
         public string Note { get; set; }
 
         public string ApplicationUserId { get; set; }

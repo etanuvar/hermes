@@ -45,6 +45,8 @@ namespace Netblaster.Hermes.DAL.Model
         
         public virtual ICollection<UserGroup> UserGroups { get; set; }
 
+        public virtual ICollection<TaskSubItem> TaskSubItems { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

@@ -30,5 +30,9 @@ namespace Netblaster.Hermes.BLL.DTOs.FilterBoxes
 
         [Display(Name = "NIP")]
         public string Knt_Nip { get; set; }
+
+        [Display(Name = "Akronim")]
+        public string Knt_Kod { get; set; }
+
     }
 }

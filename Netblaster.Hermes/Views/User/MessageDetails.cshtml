@@ -10,10 +10,14 @@
                 </div>
             </a>
             <div id="hbreadcrumb" class="pull-right m-t-lg">
-                <ol class="hbreadcrumb breadcrumb">
-                    <a href="/User/Messages" class="btn btn-sm btn-primary margin-right-xs">
+                <ol class="hbreadcrumb breadcrumb">     
+                    <a href="/User/Messages" class="btn btn-sm btn-default margin-right-xs">
                         <i class="fa fa-arrow-left margin-right-xs"></i>Wiadomości
                     </a>
+                    <button type="button" id="banUser" class="btn btn-sm btn-primary margin-right-xs"
+                            data-toggle="modal" data-target="#sendMessage">
+                        <i class="fa fa-envelope margin-right-xs"></i>Odpowiedz
+                    </button>
                 </ol>
             </div>
             <h2 class="font-light m-b-xs">
@@ -53,3 +57,33 @@
 </div>
 
 
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Odpowiedz</h4>
+                <small class="font-bold">Wyślij wiadomość do użytkownika @Model.SenderDisplayName.</small>
+            </div>
+            @using (Html.BeginForm("SendMessage", "Management", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <input type="hidden" name="UserId" id="UserId" value="@Model.SenderId"/>
+                            <div class="form-group">
+                                <label>Wiadomość</label>
+                                <textarea id="Message" name="Message" class="form-control" required="required"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-envelope margin-right-xs"></i>Wyślij</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -50,9 +50,10 @@ namespace Netblaster.Hermes.BLL.DTOs.FilterBoxes
         [Display(Name = "Treść zadania")]
         public string Note { get; set; }
 
-        public string AffectedToId { get; set; }
+        [Display(Name = "Klient (nazwa lub akronim)")]
+        public string ClientName { get; set; }
 
-        [Display(Name = "Przydzielone do")]
+        [Display(Name = "Przydzielone do użytkownika")]
         public string AffectedTo { get; set; }
 
         [Display(Name = "Termin graniczny od")]

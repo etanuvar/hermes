@@ -2173,6 +2173,7 @@
     <Compile Include="Models\Management\SendMessageViewModel.cs" />
     <Compile Include="Models\Management\UserDetailsViewModel.cs" />
     <Compile Include="Models\Management\UserGroupViewModel.cs" />
+    <Compile Include="Models\Task\AddSimpleAttachmentToTaskVm.cs" />
     <Compile Include="Models\Task\AddTaskViewModel.cs" />
     <Compile Include="Models\Task\AddCommentToTaskVm.cs" />
     <Compile Include="Models\Task\AddUserToTaskVm.cs" />

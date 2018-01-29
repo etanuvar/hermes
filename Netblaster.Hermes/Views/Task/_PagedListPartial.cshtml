@@ -2,8 +2,10 @@
 @{
     string currentSort = ViewBag.SortParam;
     int pageSize = ViewBag.PageSize;
+    var user = (ApplicationUser) Session["ApplicationUser"]; 
 }
 @using Netblaster.Hermes.DAL.Extensions
+@using Netblaster.Hermes.DAL.Model
 @using Netblaster.Hermes.WebUI.Helpers
 @using PagedList.Mvc;
 
@@ -47,40 +49,44 @@
                                     @Html.SortIdentifier(currentSort, "EndDate")
                                 </th>
                                 <th class="col-md-2">
+                                    <a href="javascript:void(0)" class="sort-link" data-sort-param="Note" data-previous-sort="@currentSort">Kontrahent</a>
+                                    @Html.SortIdentifier(currentSort, "Note")
+                                </th>
+                                <th class="col-md-2">
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="Title" data-previous-sort="@currentSort">Tytuł zadania</a>
                                     @Html.SortIdentifier(currentSort, "Title")
                                 </th>
-                                <th class="col-md-2">
-                                    <a href="javascript:void(0)" class="sort-link" data-sort-param="Note" data-previous-sort="@currentSort">Treść</a>
-                                    @Html.SortIdentifier(currentSort, "Note")
-                                </th>
+
                                 <th class="col-md-1">
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="ItemStatus" data-previous-sort="@currentSort">Status</a>
                                     @Html.SortIdentifier(currentSort, "ItemStatus")
                                 </th>
-                                <th class="col-md-2">
+                                <th class="col-md-1">
                                     <a href="javascript:void(0)" class="sort-link" data-sort-param="CreatedBy" data-previous-sort="@currentSort">Zgłaszający</a>
                                     @Html.SortIdentifier(currentSort, "CreatedBy")
                                 </th>
                                 <th class="col-md-2">
-                                    <a href="javascript:void(0)" class="sort-link" data-sort-param="ApplicationUser" data-previous-sort="@currentSort">Przydzielone do grupy</a>
+                                    <a href="javascript:void(0)" class="sort-link" data-sort-param="ApplicationUser" data-previous-sort="@currentSort">Przydzielone do</a>
                                     @Html.SortIdentifier(currentSort, "ApplicationUser")
                                 </th>
 
-
+                                <th class="col-md-1">
+                                    <a href="javascript:void(0)" class="sort-link" data-sort-param="CreatedBy" data-previous-sort="@currentSort">Akcje</a>
+                                    @Html.SortIdentifier(currentSort, "CreatedBy")
+                                </th>
                             </tr>
                             @foreach (var item in Model)
                             {
-                                <tr class="audit-row" element-id="@item.Id" style="cursor: pointer">
+                                <tr class="audit-row task-item-@((int)item.ItemStatus)" element-id="@item.Id" style="cursor: pointer">
                                     <td class="col-md-1">@item.CreateDate</td>
                                     <td class="col-md-1">@item.DeadlineDate</td>
                                     <td class="col-md-1">@item.EndDate</td>
+                                    <td class="col-md-2">@(item.KntId != 0 ? item.Kontrahent.Knt_Nazwa1 : "")</td>
                                     <td class="col-md-2">@item.Title</td>
-                                    <td class="col-md-2">@(item.Note.Length > 25 ? item.Note.Substring(0,25)+ " (...)" : "")</td>
                                     <td class="col-md-1">@item.ItemStatus.GetDisplayName()</td>
                                     <td class="col-md-2">@(item.CreatedBy != null ? (item.CreatedBy.FirstName + " " + @item.CreatedBy.LastName) : string.Empty)</td>
-                                    <td class="col-md-2">@(item.Group != null ? (item.Group.Name) : string.Empty)</td>
-                                    
+                                    <td class="col-md-2">@(item.Group != null ? (item.Group.Name) : (item.ApplicationUser != null ? item.ApplicationUser.DisplayName : "") )</td>
+                                    <td class="col-md-1">@Html.Raw(user.HasClaim("Administrator") ? $"<a href=\"{@Url.Action("Delete", "Task", new {id = item.Id})}\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i> Usuń</a>" : "")</td>
                                 </tr>
                             }
                         </table>

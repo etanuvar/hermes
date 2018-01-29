@@ -28,21 +28,24 @@
         </div>
 
         <div class="row margin-top-sm">
-            <div class="col-sm-3">
-                @Html.LabelFor(model => model.Knt_Powiat, htmlAttributes: new { @class = "control-label  display-block" })
-                @Html.EditorFor(model => model.Knt_Powiat, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
-            </div>
             
             <div class="col-sm-3">
-                @Html.LabelFor(model => model.Knt_Ulica, htmlAttributes: new { @class = "control-label  display-block" })
-                @Html.EditorFor(model => model.Knt_Ulica, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+                @Html.LabelFor(model => model.Knt_Kod, htmlAttributes: new { @class = "control-label  display-block" })
+                @Html.EditorFor(model => model.Knt_Kod, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
             </div>
-            
             <div class="col-sm-3">
-                @Html.LabelFor(model => model.Knt_KodPocztowy, htmlAttributes: new { @class = "control-label  display-block" })
-                @Html.EditorFor(model => model.Knt_KodPocztowy, new { htmlAttributes = new { @class = "form-control", @style = "width:100%" } })
+                @Html.LabelFor(model => model.Knt_Powiat, htmlAttributes: new {@class = "control-label  display-block"})
+                @Html.EditorFor(model => model.Knt_Powiat, new {htmlAttributes = new {@class = "form-control", @style = "width:100%"}})
             </div>
-            
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_Ulica, htmlAttributes: new {@class = "control-label  display-block"})
+                @Html.EditorFor(model => model.Knt_Ulica, new {htmlAttributes = new {@class = "form-control", @style = "width:100%"}})
+            </div>
+
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.Knt_KodPocztowy, htmlAttributes: new {@class = "control-label  display-block"})
+                @Html.EditorFor(model => model.Knt_KodPocztowy, new {htmlAttributes = new {@class = "form-control", @style = "width:100%"}})
+            </div>
         </div>
 
         <div class="row margin-top-md">

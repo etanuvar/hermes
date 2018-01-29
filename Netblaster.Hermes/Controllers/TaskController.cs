@@ -45,6 +45,45 @@ namespace Netblaster.Hermes.WebUI.Controllers
         }
 
         [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var task = _hermesDataContext.TaskItems.Find(id);
+
+            if (task != null)
+            {
+                foreach (var details in task.TaskDetails.ToList())
+                {
+                    _hermesDataContext.TaskDetails.Remove(details);
+                }
+
+                foreach (var items in task.TaskSubItems.ToList())
+                {
+                    _hermesDataContext.TaskSubItems.Remove(items);
+                }
+
+                foreach (var attachments in task.Attachments.ToList())
+                {
+                    _hermesDataContext.Attachments.Remove(attachments);
+                }
+
+                foreach (var tiu in task.TaskItemUsers.ToList())
+                {
+                    _hermesDataContext.TaskItemUsers.Remove(tiu);
+                }
+
+                foreach (var wt in task.WorkTimes.ToList())
+                {
+                    _hermesDataContext.WorkTimes.Remove(wt);
+                }
+
+                _hermesDataContext.TaskItems.Remove(task);
+                _hermesDataContext.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
             SetHeaders("Zadania", "Lista wszystkich zadań", "Index", "Task", "/Task/Add", "Dodaj nowe zadanie");
@@ -66,6 +105,15 @@ namespace Netblaster.Hermes.WebUI.Controllers
                 }
             }
 
+            var assignedToYou = _hermesDataContext.TaskItems.Where(x => x.SelectedUserId == CurrentUser.Id).ToList();
+            foreach (var tasks in assignedToYou)
+            {
+                if (taskList.All(x => x.Id != tasks.Id))
+                {
+                    taskList.Add(tasks);
+                }
+            }
+
             var tasksDto = taskList.Select(x => new TaskListDto()
             {
                 Group = x.Group,
@@ -74,12 +122,22 @@ namespace Netblaster.Hermes.WebUI.Controllers
                 CreatedBy = x.CreatedBy,
                 DeadlineDate = x.DeadlineDate,
                 CreatedById = x.CreatedById,
+                ApplicationUser = x.SelectedUser,
                 Note = x.Note,
                 Title = x.Title,
                 EndDate = x.EndDate,
                 Id = x.Id,
-                ItemStatus = x.ItemStatus
+                ItemStatus = x.ItemStatus,
+                KntId = x.KntId.HasValue ? x.KntId.Value : 0,
             }).ToList();
+
+            foreach (var task in tasksDto)
+            {
+                if (task.KntId != 0)
+                {
+                    task.Kontrahent = _optimaDbContext.Kontrahenci.Find(task.KntId);
+                }
+            }
 
             SetViewParams("CreateDate", _defaultPage, _defaultPageSize);
             var listData = tasksDto.ToPagedList(_defaultPage, _defaultPageSize);
@@ -118,10 +176,20 @@ namespace Netblaster.Hermes.WebUI.Controllers
                 }
             }
 
+            var assignedToYou = _hermesDataContext.TaskItems.Where(x => x.SelectedUserId == CurrentUser.Id).ToList();
+            foreach (var tasks in assignedToYou)
+            {
+                if (taskList.All(x => x.Id != tasks.Id))
+                {
+                    taskList.Add(tasks);
+                }
+            }
+
             var tasksDto = taskList.Select(x => new TaskListDto()
             {
                 Group = x.Group,
                 GroupId = x.GroupId,
+                ApplicationUser = x.SelectedUser,
                 CreateDate = x.CreateDate,
                 CreatedBy = x.CreatedBy,
                 CreatedById = x.CreatedById,
@@ -148,6 +216,7 @@ namespace Netblaster.Hermes.WebUI.Controllers
         {
             var newTaskViewModel = new AddTaskViewModel
             {
+                Users = GetUses(),
                 Groups = GetGroups(),
                 CreatedBy = CurrentUser,
                 CreatedById = CurrentUser.Id,
@@ -158,25 +227,99 @@ namespace Netblaster.Hermes.WebUI.Controllers
             };
 
             return View(newTaskViewModel);
-        }   
+        }
+
+        [HttpPost]
+        public ActionResult AddAttachment(AddSimpleAttachmentToTaskVm model)
+        {
+            Attachment att = null;
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+                if (file != null && file.ContentLength > 0)
+                {
+                    byte[] data;
+                    using (Stream inputStream = file.InputStream)
+                    {
+                        MemoryStream memoryStream = inputStream as MemoryStream;
+                        if (memoryStream == null)
+                        {
+                            memoryStream = new MemoryStream();
+                            inputStream.CopyTo(memoryStream);
+                        }
+                        data = memoryStream.ToArray();
+
+                        att = new Attachment()
+                        {
+                            BinaryData = data,
+                            CreateDate = DateTime.Now,
+                            FileName = file.FileName,
+                            MimeType = file.ContentType,
+                        };
+                    }
+
+                }
+            }
+
+            if (model.attachmentFor == "Całe zadanie")
+            {
+                var task = _hermesDataContext.TaskItems.Find(model.Id);
+                if (task != null && att != null)
+                {
+                    att.TaskItemId = task.Id;
+                    _hermesDataContext.Attachments.Add(att);
+                    _hermesDataContext.SaveChanges();
+                }
+            }
+            else
+            {
+                var task = _hermesDataContext.TaskItems.Find(model.Id);
+                if (task != null && att != null)
+                {
+                    var subItem = task.TaskSubItems.SingleOrDefault(x => x.Text == model.attachmentFor);
+                    if (subItem != null)
+                    {
+                        att.TaskSubItemId = subItem.Id;
+                        _hermesDataContext.Attachments.Add(att);
+                        _hermesDataContext.SaveChanges();
+                    }
+                }
+            }
+            return RedirectToAction("Details", new { id = model.Id });
+        }
 
         [HttpPost]
         public ActionResult Add(AddTaskViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var createdByUser = _hermesDataContext.Users.Find(viewModel.CreatedById);
-                var selectedGroup = _hermesDataContext.Groups.Find(viewModel.SelectedGroupId);
                 var domainModel = Mapper.Instance.Map<TaskItem>(viewModel);
 
+                var createdByUser = _hermesDataContext.Users.Find(viewModel.CreatedById);
+
+                if (viewModel.SelectedGroupId != null)
+                {
+                    var selectedGroup = _hermesDataContext.Groups.Find(viewModel.SelectedGroupId);
+                    domainModel.Group = selectedGroup;
+                    domainModel.GroupId = viewModel.SelectedGroupId;
+                }
+                if (!string.IsNullOrEmpty(viewModel.SelectedUserId))
+                {
+                    var selectedUser = _hermesDataContext.Users.Find(viewModel.SelectedUserId);
+                    domainModel.SelectedUser = selectedUser;
+                    domainModel.SelectedUserId = viewModel.SelectedUserId;
+                }
+                if (viewModel.KntId.HasValue)
+                {
+                    domainModel.KntId = viewModel.KntId.Value;
+                }
+                
                 domainModel.CreateDate = domainModel.CreateDate.AddHours(int.Parse(viewModel.CreateTime.Split(':')[0]));
                 domainModel.CreateDate = domainModel.CreateDate.AddMinutes(int.Parse(viewModel.CreateTime.Split(':')[1]));
 
                 domainModel.DeadlineDate = domainModel.DeadlineDate.AddHours(int.Parse(viewModel.EndTime.Split(':')[0]));
                 domainModel.DeadlineDate = domainModel.DeadlineDate.AddMinutes(int.Parse(viewModel.EndTime.Split(':')[1]));
-
-                domainModel.Group = selectedGroup;
-                domainModel.GroupId = viewModel.SelectedGroupId;
+                
                 domainModel.ItemStatus = TaskItemStatus.Pending;
 
                 _hermesDataContext.TaskItems.Add(domainModel);
@@ -240,10 +383,19 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
                 var templateFile = Server.MapPath(Url.Content("~/Content/template.txt"));
                 var msg = EmailHelper.GenerateNewTaskMessage($"http://{Request.Url.Authority}", templateFile, CurrentUser, domainModel);
-                EmailHelper.SendEmailToGroup(msg, selectedGroup);
+
+                if (!string.IsNullOrEmpty(domainModel.SelectedUserId))
+                {
+                    EmailHelper.SendEmailToUsers(msg, new[] {domainModel.SelectedUser});
+                }
+                else
+                {
+                    EmailHelper.SendEmailToGroup(msg, domainModel.Group);
+                }
 
                 return RedirectToAction("Index");
             }
+            viewModel.Users = GetUses();
             viewModel.Groups = GetGroups();
             viewModel.CreatedBy = CurrentUser;
             viewModel.CreatedById = CurrentUser.Id;
@@ -314,6 +466,7 @@ namespace Netblaster.Hermes.WebUI.Controllers
         {
             var task = _hermesDataContext.TaskItems.Find(id);
 
+            task.FinishedByDisplay = CurrentUser.DisplayName;
             task.ItemStatus = TaskItemStatus.Done;
             _hermesDataContext.SaveChanges();
 
@@ -411,11 +564,13 @@ namespace Netblaster.Hermes.WebUI.Controllers
             {
                 taskSubItem.IsFinished = newValue;
                 taskSubItem.FinishedDate = DateTime.Now;
+                taskSubItem.FinishedById = CurrentUser.Id;
 
                 await _hermesDataContext.SaveChangesAsync();
                 var taskItem = await _hermesDataContext.TaskItems.FindAsync(taskSubItem.TaskItemId);
                 if (!taskItem.TaskSubItems.Any(x => x.IsFinished == false))
                 {
+                    taskItem.FinishedByDisplay = CurrentUser.DisplayName;
                     taskItem.ItemStatus = TaskItemStatus.Done;
                     taskItem.EndDate = DateTime.Now;
                 }
@@ -477,6 +632,35 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
         public async Task<ActionResult> AddComment(AddCommentToTaskVm commentVm)
         {
+            Attachment att = null;
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+                if (file != null && file.ContentLength > 0)
+                {
+                    byte[] data;
+                    using (Stream inputStream = file.InputStream)
+                    {
+                        MemoryStream memoryStream = inputStream as MemoryStream;
+                        if (memoryStream == null)
+                        {
+                            memoryStream = new MemoryStream();
+                            inputStream.CopyTo(memoryStream);
+                        }
+                        data = memoryStream.ToArray();
+
+                        att = new Attachment()
+                        {
+                            BinaryData = data,
+                            CreateDate = DateTime.Now,
+                            FileName = file.FileName,
+                            MimeType = file.ContentType,
+                        };
+                    }
+
+                }
+            }
+
             var newTaskHistory = new TaskDetail()
             {
                 ApplicationUserId = CurrentUser.Id,
@@ -488,6 +672,13 @@ namespace Netblaster.Hermes.WebUI.Controllers
 
             _hermesDataContext.TaskDetails.Add(newTaskHistory);
             await _hermesDataContext.SaveChangesAsync();
+
+            if (att != null)
+            {
+                att.TaskDetailId = newTaskHistory.Id;
+                _hermesDataContext.Attachments.Add(att);
+                await _hermesDataContext.SaveChangesAsync();
+            }
 
             return RedirectToAction("Details", new { id = commentVm.Id });
         }

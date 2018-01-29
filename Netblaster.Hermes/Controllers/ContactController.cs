@@ -172,6 +172,7 @@ namespace Netblaster.Hermes.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Add(AddContactViewModel model)
         {
             if (ModelState.IsValid)

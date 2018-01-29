@@ -18,8 +18,14 @@ namespace Netblaster.Hermes.DAL.Model
 
         public DateTime? FinishedDate { get; set; }
 
+        public string FinishedById { get; set; }
+
+        public virtual ApplicationUser FinishedBy { get; set; }
+
         public int TaskItemId { get; set; }
 
         public virtual TaskItem TaskItem { get; set; }
+
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 }

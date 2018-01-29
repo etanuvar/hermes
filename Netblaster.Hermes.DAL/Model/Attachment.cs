@@ -28,5 +28,13 @@ namespace Netblaster.Hermes.DAL.Model
 
         public virtual Contact Contact { get; set; }
 
+        public int? TaskDetailId { get; set; }
+
+        public virtual TaskDetail TaskDetail { get; set; }
+
+        public int? TaskSubItemId { get; set; }
+
+        public virtual TaskSubItem TaskSubItem { get; set; }
+
     }
 }
